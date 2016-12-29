@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.researchgroup.model;
+package edu.eci.researchgroup.modularsystem.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,11 @@ import java.util.List;
  * @author Julian David Devia Serna
  */
 public class Development {
+
+    public Development() {
+        documents = new ArrayList<>();
+        subModules = new ArrayList<>();
+    }
 
     /**
      * @return the text

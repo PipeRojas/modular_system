@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.researchgroup.model;
+package edu.eci.researchgroup.modularsystem.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,10 @@ import java.util.List;
  * @author Julian David Devia Serna
  */
 public class Start {
+
+    public Start() {
+        documents = new ArrayList<>();
+    }
 
     /**
      * @return the text
@@ -83,7 +88,7 @@ public class Start {
     public void setDocuments(List<String> documents) {
         this.documents = documents;
     }
-    
+
     private String text;
     private String selection;
     private boolean frequency;
