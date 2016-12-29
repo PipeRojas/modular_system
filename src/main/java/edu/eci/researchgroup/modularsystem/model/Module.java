@@ -14,6 +14,20 @@ import java.util.List;
  * @author Julian David devia Serna
  */
 public class Module {
+
+    /**
+     * @return the owner
+     */
+    public User getOwner() {
+        return owner;
+    }
+
+    /**
+     * @param owner the owner to set
+     */
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
     
     public Module(){
         remarks = new ArrayList<>();
@@ -118,6 +132,7 @@ public class Module {
         this.remarks = remarks;
     }
     private String name;
+    private User owner;
     private boolean iteration;
     private Date initialDate;
     private List<String> remarks;

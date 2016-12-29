@@ -10,6 +10,7 @@ import edu.eci.researchgroup.modularsystem.model.End;
 import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
 import edu.eci.researchgroup.modularsystem.model.Start;
+import edu.eci.researchgroup.modularsystem.model.User;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -80,6 +81,10 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         e.setSelection("a");
         e.setText("b");
         e.setStartAndDevelopmentRemarks("c");
+        User u= new User();
+        u.setName("user");
+        u.setSelection("a");
+        u.setText("b");
         Module mod = new Module();
         mod.setInitialDate(new Date());
         mod.setIteration(true);
@@ -87,6 +92,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         mod.setStart(s);
         mod.setDevelopment(d);
         mod.setEnd(e);
+        mod.setOwner(u);
         try {
             pers.addModule(mod);
         } catch (ModuleException ex) {
