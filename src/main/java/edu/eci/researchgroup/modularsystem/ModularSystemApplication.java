@@ -35,6 +35,10 @@ import java.io.IOException;
 @SpringBootApplication
 public class ModularSystemApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(ModularSystemApplication.class, args);
+    }
+
     @Configuration
     @EnableGlobalMethodSecurity(prePostEnabled = true)
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
@@ -92,7 +96,5 @@ public class ModularSystemApplication {
 
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(ModularSystemApplication.class, args);
-    }
+
 }

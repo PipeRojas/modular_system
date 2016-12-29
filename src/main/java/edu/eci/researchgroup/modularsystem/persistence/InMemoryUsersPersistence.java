@@ -36,16 +36,18 @@ public class InMemoryUsersPersistence implements UsersPersistence {
     public void addUser(User user) throws UserException {
         if(!checkUser(user.getName())){
             users.put(user.getName(), user);
+        }else{
+            throw new UserException("The user already exists");
         }
-        throw new UserException("The user already exists");
     }
 
     @Override
     public User getUser(String name) throws UserException {
         if(checkUser(name)){
             return users.get(name);
+        }else{
+            throw new UserException("The user doesn't exists");
         }
-        throw new UserException("The user doesn't exists");
     }
 
     @Override
@@ -58,8 +60,10 @@ public class InMemoryUsersPersistence implements UsersPersistence {
         if(checkUser(oldName)){
             addUser(user);
             users.remove(oldName);
+        }else{
+            throw new UserException("The user doesn't exists");
         }
-        throw new UserException("The user doesn't exists");
+
     }
     
     public static void staticUsers(InMemoryUsersPersistence us){

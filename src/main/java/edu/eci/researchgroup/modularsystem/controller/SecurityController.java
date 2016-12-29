@@ -16,6 +16,7 @@ import java.security.Principal;
  *
  * @author Julian David Devia Serna
  */
+@RestController
 public class SecurityController {
     @RequestMapping("/app/user")
     public Principal user(Principal user) {

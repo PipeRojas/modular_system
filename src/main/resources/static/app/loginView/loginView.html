@@ -1,0 +1,26 @@
+<head>
+    <style>
+body {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  flex-orient: column;
+  flex-grow: 100%;
+  background-color: rgb(230, 249, 255);
+}
+</style>
+</head>
+<form class="body" role="form" ng-submit="login()" ng-show="!authenticated">
+    <center>
+        <div>
+            <label for="username">Usuario:</label> <input type="text"
+                                                          id="username" name="username" ng-model="credentials.username"/>
+        </div>
+        <div>
+            <label for="password">Contraseña:</label> <input type="password"
+                                                             id="password" name="password" ng-model="credentials.password"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+    </center>
+</form>

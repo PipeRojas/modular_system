@@ -41,9 +41,9 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     public void addModule(Module mod) throws ModuleException {
         if (!checkModule(mod.getName())) {
             modulos.put(mod.getName(), mod);
+        }else{
+            throw new ModuleException("The module already exists");
         }
-        throw new ModuleException("The module already exists");
-
     }
 
     @Override
@@ -55,8 +55,9 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     public Module getModule(String name) throws ModuleException {
         if (checkModule(name)) {
             return modulos.get(name);
+        }else{
+            throw new ModuleException("The module doesn't exits");
         }
-        throw new ModuleException("The module doesn't exits");
     }
 
     @Override
@@ -64,8 +65,9 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         if (checkModule(oldName)) {
             addModule(mod);
             modulos.remove(oldName);
+        }else{
+            throw new ModuleException("The module doesn't exists");
         }
-        throw new ModuleException("The module doesn't exists");
     }
 
     public static void staticModules(InMemoryModulesPersistence pers) {
