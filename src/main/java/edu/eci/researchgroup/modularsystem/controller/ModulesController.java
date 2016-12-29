@@ -33,12 +33,12 @@ public class ModulesController {
     private ModulesManager mm;
     
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getUsers(){
+    public ResponseEntity<?> getModules(){
         return new ResponseEntity<>(mm.getModules(), HttpStatus.ACCEPTED);
     }
     
     @RequestMapping(method = RequestMethod.GET, path = "/{moduleName}")
-    public ResponseEntity<?> getUser(@PathVariable String moduleName) {
+    public ResponseEntity<?> getModule(@PathVariable String moduleName) {
         try {
             return new ResponseEntity<>(mm.getModule(moduleName), HttpStatus.ACCEPTED);
         } catch (ModuleException ex) {
@@ -48,7 +48,7 @@ public class ModulesController {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> PostUser(@RequestBody Module m) {
+    public ResponseEntity<?> postModule(@RequestBody Module m) {
         try {
             mm.addModule(m);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -59,7 +59,7 @@ public class ModulesController {
         
     }
     @RequestMapping(method = RequestMethod.PUT, path = "/{oldModuleName}")
-    public ResponseEntity<?> PostUser(@PathVariable String oldModuleName,@RequestBody Module m) {
+    public ResponseEntity<?> postModule(@PathVariable String oldModuleName,@RequestBody Module m) {
         try {
             mm.updateModule(oldModuleName,m);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);

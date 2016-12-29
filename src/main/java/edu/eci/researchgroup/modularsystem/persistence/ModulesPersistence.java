@@ -18,7 +18,7 @@ public interface ModulesPersistence {
     /**
      *
      * @param name the name of the module to check
-     * @return true if the module exits, false otherwise
+     * @return true if the module exists, false otherwise
      */
     public boolean checkModule(String name);
     

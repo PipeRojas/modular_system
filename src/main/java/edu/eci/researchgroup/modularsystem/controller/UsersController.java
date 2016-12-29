@@ -48,7 +48,7 @@ public class UsersController {
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> PostUser(@RequestBody User u) {
+    public ResponseEntity<?> postUser(@RequestBody User u) {
         try {
             um.addUser(u);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
@@ -58,7 +58,7 @@ public class UsersController {
         }
     }
     @RequestMapping(method = RequestMethod.PUT, path = "/{oldUserName}")
-    public ResponseEntity<?> PostUser(@PathVariable String oldUserName,@RequestBody User u) {
+    public ResponseEntity<?> postUser(@PathVariable String oldUserName,@RequestBody User u) {
         try {
             um.updateUser(oldUserName,u);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
