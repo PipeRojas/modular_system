@@ -7,8 +7,6 @@ package edu.eci.researchgroup.modularsystem.controller;
 
 import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
-import edu.eci.researchgroup.modularsystem.model.User;
-import edu.eci.researchgroup.modularsystem.model.UserException;
 import edu.eci.researchgroup.modularsystem.services.ModulesManager;
 import java.io.File;
 import java.util.logging.Level;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import sun.management.jdp.JdpGenericPacket;
 
 /**
  *

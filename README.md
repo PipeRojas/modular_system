@@ -28,6 +28,7 @@ These can be used alone like this:
 | :------ | :----- | :---------- | :-------- | :------ |
 | `/users/{userName}` | **GET** | Returns the requested user | | **User** |
 | `/modules/{moduleName}` | **GET** | Returns the requested module | | **Module** |
+| `/modules/mainModules` | **GET** | Returns the requested module | | **Map < String , Module >** |
 | `/users` | **POST** | Saves the given user | **User** | |
 | `/modules` | **POST** | Saves the given module | **Module** | |
 | `/users/{oldUserName}` | **PUT** | Updates the selected user with the given information | **User** | |

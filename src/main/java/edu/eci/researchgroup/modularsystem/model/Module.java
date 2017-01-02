@@ -185,4 +185,8 @@ public class Module {
                 this.getDevelopment().equals(other.getDevelopment()) && this.getEnd().equals(other.getEnd()); 
     }
     
+    @Override
+    public String toString(){
+        return name+"\n\t"+development.toString();
+    }
 }

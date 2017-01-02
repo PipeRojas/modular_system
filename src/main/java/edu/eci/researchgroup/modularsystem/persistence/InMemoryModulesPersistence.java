@@ -175,13 +175,13 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         subMod.setInitialDate(new Date());
         subMod.setIteration(true);
         subMod.setName("sub-module");
-        subMod.setStart(s);
-        subMod.setDevelopment(d);
-        subMod.setEnd(e);
-        subMod.setOwner(u);
-        mod.addSubModule(subMod);
+        subMod.setStart(s2);
+        subMod.setDevelopment(d2);
+        subMod.setEnd(e2);
+        subMod.setOwner(u2);
         try {
             pers.addModule(mod);
+            pers.addSubModuleToModule(subMod, mod.getName());
         } catch (ModuleException ex) {
             Logger.getLogger(InMemoryModulesPersistence.class.getName()).log(Level.SEVERE, null, ex);
         }

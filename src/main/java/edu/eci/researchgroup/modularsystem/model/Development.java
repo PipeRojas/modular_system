@@ -105,4 +105,9 @@ public class Development {
         return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection()) &&
                 this.getDocuments().equals(other.getDocuments()) && this.getSubModules().equals(other.getSubModules());
     }
+    
+    @Override
+    public String toString(){
+        return subModules.toString();
+    }
 }
