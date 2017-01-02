@@ -94,4 +94,15 @@ public class Development {
     public void addDocument(String uri){
         documents.add(uri);
     }
+    
+    public boolean hasSubModule(Module subModule){
+        return subModules.contains(subModule);
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        Development other=(Development) o;
+        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection()) &&
+                this.getDocuments().equals(other.getDocuments()) && this.getSubModules().equals(other.getSubModules());
+    }
 }

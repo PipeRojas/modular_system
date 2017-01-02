@@ -74,4 +74,18 @@ public interface ModulesPersistence {
      * @throws ModuleException if the module doesn't exists
      */
     public void addRemarkToModule(String remark,String name) throws ModuleException;
+    
+    /**
+     *
+     * @param subModule the sub-module to be added to the module
+     * @param name the name of the selected module
+     * @throws ModuleException if the module doesn't exists
+     */
+    public void addSubModuleToModule(Module subModule,String name) throws ModuleException;
+    
+    /**
+     * Returns the main modules, those who aren't submodules of other modules
+     * @return the main modules, those who aren't submodules of other modules
+     */
+    public Map<String,Module> getMainModules();
 }

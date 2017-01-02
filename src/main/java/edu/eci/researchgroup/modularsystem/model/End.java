@@ -55,4 +55,11 @@ public class End {
     private String text;
     private String selection;
     private String startAndDevelopmentRemarks;
+    
+    @Override
+    public boolean equals(Object o){
+        End other=(End) o;
+        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection()) &&
+                this.getStartAndDevelopmentRemarks().equals(other.getStartAndDevelopmentRemarks());
+    }
 }

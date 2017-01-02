@@ -55,4 +55,10 @@ public class User {
     private String name;
     private String text;
     private String Selection;
+    
+    @Override
+    public boolean equals(Object o){
+        User other=(User) o;
+        return this.getName().equals(other.getName()) && this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection());
+    }
 }

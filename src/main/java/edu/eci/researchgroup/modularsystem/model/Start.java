@@ -102,4 +102,12 @@ public class Start {
     public void addDocument(String uri){
         documents.add(uri);
     }
+    
+    @Override
+    public boolean equals(Object o){
+        Start other=(Start) o;
+        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection()) &&
+                this.isFrequency()==other.isFrequency() && this.getEstimateDate().equals(other.getEstimateDate()) &&
+                this.getDocuments().equals(other.getDocuments());
+    }
 }

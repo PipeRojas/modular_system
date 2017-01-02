@@ -171,4 +171,18 @@ public class Module {
     public void addDevelopmentDocument(String uri){
         development.addDocument(uri);
     }
+    
+    public boolean hasSubModule(Module subModule){
+        return development.hasSubModule(subModule);
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        Module other=(Module) o;
+        return this.getName().equals(other.getName()) && this.getOwner().equals(other.getOwner()) &&
+                this.isIteration()==other.isIteration() && this.getInitialDate().equals(other.getInitialDate()) &&
+                this.getRemarks().equals(other.getRemarks()) && this.getStart().equals(other.getStart()) &&
+                this.getDevelopment().equals(other.getDevelopment()) && this.getEnd().equals(other.getEnd()); 
+    }
+    
 }

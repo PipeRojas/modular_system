@@ -11,8 +11,10 @@ import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
 import edu.eci.researchgroup.modularsystem.model.Start;
 import edu.eci.researchgroup.modularsystem.model.User;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +43,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     public void addModule(Module mod) throws ModuleException {
         if (!checkModule(mod.getName())) {
             modulos.put(mod.getName(), mod);
-        }else{
+        } else {
             throw new ModuleException("The module already exists");
         }
     }
@@ -55,7 +57,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     public Module getModule(String name) throws ModuleException {
         if (checkModule(name)) {
             return modulos.get(name);
-        }else{
+        } else {
             throw new ModuleException("The module doesn't exits");
         }
     }
@@ -65,36 +67,66 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         if (checkModule(oldName)) {
             addModule(mod);
             modulos.remove(oldName);
-        }else{
+        } else {
             throw new ModuleException("The module doesn't exists");
         }
     }
 
     @Override
     public void addDocumentToStartModule(String uri, String name) throws ModuleException {
-        if(checkModule(name)){
+        if (checkModule(name)) {
             modulos.get(name).addStartDocument(uri);
-        }else{
+        } else {
             throw new ModuleException("The module doesn't exists");
         }
     }
 
     @Override
     public void addDocumentToDevelopmentModule(String uri, String name) throws ModuleException {
-        if(checkModule(name)){
+        if (checkModule(name)) {
             modulos.get(name).addDevelopmentDocument(uri);
-        }else{
+        } else {
             throw new ModuleException("The module doesn't exists");
         }
     }
 
     @Override
     public void addRemarkToModule(String remark, String name) throws ModuleException {
-        if(checkModule(name)){
+        if (checkModule(name)) {
             modulos.get(name).addRemark(remark);
-        }else{
+        } else {
             throw new ModuleException("The module doesn't exists");
         }
+    }
+
+    @Override
+    public void addSubModuleToModule(Module subModule, String name) throws ModuleException {
+        if (checkModule(name)) {
+            if(!checkModule(subModule.getName())){
+                addModule(subModule);
+            }
+            modulos.get(name).addSubModule(subModule);
+        } else {
+            throw new ModuleException("The module doesn't exists");
+        }
+    }
+
+    @Override
+    public Map<String, Module> getMainModules() {
+        Map<String,Module> main= new HashMap<>();
+        for(Module actual:modulos.values()){
+            boolean isSubModule=false;
+            for(Module otro:modulos.values()){
+                isSubModule=isSubModule || otro.hasSubModule(actual);
+                if(isSubModule){
+                    break;
+                }
+            }
+            if(!isSubModule){
+                main.put(actual.getName(), actual);
+            }
+        }
+        return main;
     }
     
     public static void staticModules(InMemoryModulesPersistence pers) {
@@ -110,7 +142,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         e.setSelection("a");
         e.setText("b");
         e.setStartAndDevelopmentRemarks("c");
-        User u= new User();
+        User u = new User();
         u.setName("user");
         u.setSelection("a");
         u.setText("b");
@@ -122,6 +154,32 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         mod.setDevelopment(d);
         mod.setEnd(e);
         mod.setOwner(u);
+
+        Start s2 = new Start();
+        s2.setEstimateDate(new Date());
+        s2.setFrequency(true);
+        s2.setSelection("1");
+        s2.setText("2");
+        Development d2 = new Development();
+        d2.setSelection("1");
+        d2.setText("2");
+        End e2 = new End();
+        e2.setSelection("1");
+        e2.setText("2");
+        e2.setStartAndDevelopmentRemarks("1");
+        User u2 = new User();
+        u2.setName("user");
+        u2.setSelection("a");
+        u2.setText("b");
+        Module subMod = new Module();
+        subMod.setInitialDate(new Date());
+        subMod.setIteration(true);
+        subMod.setName("sub-module");
+        subMod.setStart(s);
+        subMod.setDevelopment(d);
+        subMod.setEnd(e);
+        subMod.setOwner(u);
+        mod.addSubModule(subMod);
         try {
             pers.addModule(mod);
         } catch (ModuleException ex) {

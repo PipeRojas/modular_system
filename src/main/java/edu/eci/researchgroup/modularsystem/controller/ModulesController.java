@@ -10,6 +10,7 @@ import edu.eci.researchgroup.modularsystem.model.ModuleException;
 import edu.eci.researchgroup.modularsystem.model.User;
 import edu.eci.researchgroup.modularsystem.model.UserException;
 import edu.eci.researchgroup.modularsystem.services.ModulesManager;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +21,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import sun.management.jdp.JdpGenericPacket;
 
 /**
  *
  * @author amoto
  */
-
 @RestController
 @RequestMapping(value = "/modules")
 public class ModulesController {
+
     @Autowired
     private ModulesManager mm;
-    
+
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getModules(){
+    public ResponseEntity<?> getModules() {
         return new ResponseEntity<>(mm.getModules(), HttpStatus.ACCEPTED);
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, path = "/{moduleName}")
     public ResponseEntity<?> getModule(@PathVariable String moduleName) {
         try {
@@ -46,7 +48,13 @@ public class ModulesController {
             return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_FOUND);
         }
     }
-    
+
+    @RequestMapping(method = RequestMethod.GET, path = "/mainModules")
+    public ResponseEntity<?> getMainModules() {
+        return new ResponseEntity<>(mm.getMainModules(), HttpStatus.ACCEPTED);
+
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> postModule(@RequestBody Module m) {
         try {
@@ -56,16 +64,62 @@ public class ModulesController {
             Logger.getLogger(ModulesController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
         }
-        
+
     }
+
     @RequestMapping(method = RequestMethod.PUT, path = "/{oldModuleName}")
-    public ResponseEntity<?> postModule(@PathVariable String oldModuleName,@RequestBody Module m) {
+    public ResponseEntity<?> putModule(@PathVariable String oldModuleName, @RequestBody Module m) {
         try {
-            mm.updateModule(oldModuleName,m);
+            mm.updateModule(oldModuleName, m);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (ModuleException ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/remark/{moduleName}")
+    public ResponseEntity<?> addRemarkModule(@PathVariable String moduleName, @RequestBody String remark) {
+        try {
+            mm.addRemarkToModule(moduleName, remark);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (ModuleException ex) {
+            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/startDocument/{moduleName}")
+    public ResponseEntity<?> addStarFileModule(@PathVariable String moduleName, @RequestBody File file) {
+        try {
+            mm.addFileToModuleStart(moduleName, file);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (ModuleException ex) {
+            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/developmentDocument/{moduleName}")
+    public ResponseEntity<?> addDevelopmentFileModule(@PathVariable String moduleName, @RequestBody File file) {
+        try {
+            mm.addFileToModulDevelopment(moduleName, file);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (ModuleException ex) {
+            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, path = "/subModule/{moduleName}")
+    public ResponseEntity<?> addSubModule(@PathVariable String moduleName, @RequestBody Module subModule) {
+        try {
+            mm.addSubModuleToModule(moduleName, subModule);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (ModuleException ex) {
+            Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+
 }

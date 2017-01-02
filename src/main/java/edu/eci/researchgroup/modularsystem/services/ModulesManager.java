@@ -82,7 +82,9 @@ public class ModulesManager {
     }
 
     /**
-     * Updates an existing module based in its old name with all new information given
+     * Updates an existing module based in its old name with all new information
+     * given
+     *
      * @param oldName the old name of the module to update
      * @param mod the current module
      * @throws ModuleException if the oldName is not registered or the name of
@@ -94,14 +96,16 @@ public class ModulesManager {
 
     /**
      * Adds a file to the start phase of the selected module
+     *
      * @param name the name of the module selected
      * @param file the file to be uploaded to he start phase
-     * @throws ModuleException if the module doesn't exists or there is an error while saving the file
+     * @throws ModuleException if the module doesn't exists or there is an error
+     * while saving the file
      */
     public void addFileToModuleStart(String name, File file) throws ModuleException {
         if (checkModule(name)) {
             try {
-                Path newPath=Files.move(file.toPath(), Paths.get(new URI(name + "/" + file.getName())));
+                Path newPath = Files.move(file.toPath(), Paths.get(new URI(name + "/" + file.getName())));
                 persist.addDocumentToStartModule(newPath.toUri().getPath(), name);
             } catch (URISyntaxException | IOException ex) {
                 Logger.getLogger(ModulesManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,14 +118,16 @@ public class ModulesManager {
 
     /**
      * Adds a file to the development phase of the selected module
+     *
      * @param name the name of the module selected
      * @param file the file to be uploaded to he development phase
-     * @throws ModuleException if the module doesn't exists or there is an error while saving the file
+     * @throws ModuleException if the module doesn't exists or there is an error
+     * while saving the file
      */
     public void addFileToModulDevelopment(String name, File file) throws ModuleException {
         if (checkModule(name)) {
             try {
-                Path newPath=Files.move(file.toPath(), Paths.get(new URI(name + "/" + file.getName())));
+                Path newPath = Files.move(file.toPath(), Paths.get(new URI(name + "/" + file.getName())));
                 persist.addDocumentToDevelopmentModule(newPath.toUri().getPath(), name);
             } catch (URISyntaxException | IOException ex) {
                 Logger.getLogger(ModulesManager.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,15 +137,36 @@ public class ModulesManager {
             throw new ModuleException("The module doesn't exists");
         }
     }
-    
+
     /**
      * Adds a remark to the selected module
+     *
      * @param name the name of the module selected
      * @param remark the remark to be added
      * @throws ModuleException if the module doesn't exists
      */
-    public void addRemarkToModule(String name, String remark) throws ModuleException{
+    public void addRemarkToModule(String name, String remark) throws ModuleException {
         persist.addRemarkToModule(remark, name);
     }
-    
+
+    /**
+     * Adds a module as a submodule of the development phase of the selected
+     * module
+     *
+     * @param name the name of the selected module
+     * @param subModule the module to be added as a submodule
+     * @throws ModuleException if the module doesn't exists
+     */
+    public void addSubModuleToModule(String name, Module subModule) throws ModuleException {
+        persist.addSubModuleToModule(subModule, name);
+    }
+
+    /**
+     * Returns the main modules, those who aren't submodules of other modules
+     * @return the main modules, those who aren't submodules of other modules
+     */
+    public Map<String, Module> getMainModules() {
+        return persist.getMainModules();
+    }
+
 }
