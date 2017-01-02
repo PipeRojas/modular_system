@@ -42,7 +42,7 @@ These can be used alone like this:
 | *oldUserName* | **String**| Name of the user before modify his information |
 | *oldModuleName* | **String**| Name of the module before modify his information |
 
-### Data Forma
+### Data Form
 
 #### User:
 
