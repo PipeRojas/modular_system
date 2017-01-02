@@ -78,4 +78,20 @@ public class Development {
     private String selection;
     private List<String> documents;
     private List<Module> subModules;
+    
+    /**
+     * adds a new sub-module
+     * @param newMod the module to add
+     */
+    public void addSubModule(Module newMod){
+        subModules.add(newMod);
+    }
+    
+    /**
+     * adds a new document's uri
+     * @param uri the document's uri to add
+     */
+    public void addDocument(String uri){
+        documents.add(uri);
+    }
 }

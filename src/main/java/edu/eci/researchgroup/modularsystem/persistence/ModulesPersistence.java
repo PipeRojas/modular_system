@@ -50,4 +50,28 @@ public interface ModulesPersistence {
      * @throws ModuleException if the oldName is not registered or the name of mod already exists
      */
     public void updateModule(String oldName,Module mod) throws ModuleException;
+    
+    /**
+     *
+     * @param uri the uri of the file to be added to the start phase of the module
+     * @param name the name of the selected module
+     * @throws ModuleException if the module doesn't exists
+     */
+    public void addDocumentToStartModule(String uri,String name) throws ModuleException;
+    
+    /**
+     *
+     * @param uri the uri of the file to be added to the development phase of the module
+     * @param name the name of the selected module
+     * @throws ModuleException if the module doesn't exists
+     */
+    public void addDocumentToDevelopmentModule(String uri,String name) throws ModuleException;
+    
+    /**
+     *
+     * @param remark the remark to be added to the module
+     * @param name the name of the selected module
+     * @throws ModuleException if the module doesn't exists
+     */
+    public void addRemarkToModule(String remark,String name) throws ModuleException;
 }

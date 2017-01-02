@@ -70,6 +70,33 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         }
     }
 
+    @Override
+    public void addDocumentToStartModule(String uri, String name) throws ModuleException {
+        if(checkModule(name)){
+            modulos.get(name).addStartDocument(uri);
+        }else{
+            throw new ModuleException("The module doesn't exists");
+        }
+    }
+
+    @Override
+    public void addDocumentToDevelopmentModule(String uri, String name) throws ModuleException {
+        if(checkModule(name)){
+            modulos.get(name).addDevelopmentDocument(uri);
+        }else{
+            throw new ModuleException("The module doesn't exists");
+        }
+    }
+
+    @Override
+    public void addRemarkToModule(String remark, String name) throws ModuleException {
+        if(checkModule(name)){
+            modulos.get(name).addRemark(remark);
+        }else{
+            throw new ModuleException("The module doesn't exists");
+        }
+    }
+    
     public static void staticModules(InMemoryModulesPersistence pers) {
         Start s = new Start();
         s.setEstimateDate(new Date());

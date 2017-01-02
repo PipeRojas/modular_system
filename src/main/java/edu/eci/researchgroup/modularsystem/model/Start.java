@@ -94,4 +94,12 @@ public class Start {
     private boolean frequency;
     private Date estimateDate;
     private List<String> documents;
+    
+    /**
+     * adds a new document's uri
+     * @param uri the document's uri to add
+     */
+    public void addDocument(String uri){
+        documents.add(uri);
+    }
 }

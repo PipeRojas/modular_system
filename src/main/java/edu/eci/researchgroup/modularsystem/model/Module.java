@@ -139,4 +139,36 @@ public class Module {
     private Start start;
     private Development development;
     private End end;
+    
+    /**
+     * Adds a new remark to the module
+     * @param remark the remark to add
+     */
+    public void addRemark(String remark){
+        remarks.add(remark);
+    }
+    
+    /**
+     * Adds a new document's uri to the start phase
+     * @param uri the document's uri to add
+     */
+    public void addStartDocument(String uri){
+        start.addDocument(uri);
+    }
+    
+    /**
+     * Adds a new sub-module to the development phase
+     * @param subModule the module to add
+     */
+    public void addSubModule(Module subModule){
+        development.addSubModule(subModule);
+    }
+    
+    /**
+     * Adds a new document's uri to the development phase
+     * @param uri the document's uri to add
+     */
+    public void addDevelopmentDocument(String uri){
+        development.addDocument(uri);
+    }
 }
