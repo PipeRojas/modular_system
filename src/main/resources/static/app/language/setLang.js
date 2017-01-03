@@ -26,5 +26,10 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.YesLng="Yes";
     $rootScope.NoLng="No";
     $rootScope.moduleEstimatedDateLng="Module Estimated Date: ";
-    $rootScope.moduleStartDocuments="Module Start Documents";
+    $rootScope.moduleStartDocumentsLng="Module Start Documents";
+    $rootScope.moduleDevelopmentLng="Module Development";
+    $rootScope.moduleDevelopmentTextLng="Module Development Text: ";
+    $rootScope.moduleDevelopmentSelectionLng="Module Development Selection: ";
+    $rootScope.moduleDevelopmentDocumentsLng="Module Development Documents";
+    $rootScope.moduleSubmodulesLng="Sub-Modules of this Module";
  }]);

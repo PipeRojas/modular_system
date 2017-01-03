@@ -36,7 +36,7 @@
         <p>
             {{actualModuleInitialDateLng}}{{selectedModule.initialDate  | date:'medium'}}
         </p>
-        <table ng-model="selectedModule" ng-change="selectedModule">
+        <table bgcolor="#F6E3CE" ng-model="selectedModule" ng-change="selectedModule">
             <tr>
                 <th>
                     <center>
@@ -60,7 +60,41 @@
                 <td>
                     <center>
                         <button>
-                            {{moduleStartDocuments}}
+                            {{moduleStartDocumentsLng}}
+                        </button>
+                    </center>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table bgcolor="#F5F6CE" ng-model="selectedModule" ng-change="selectedModule">
+            <tr>
+                <th>
+                    <center>
+                        {{moduleDevelopmentLng}}
+                    </center>
+                </th>
+            </tr>
+            <tr>
+                <td><b>{{moduleDevelopmentTextLng}}</b>{{selectedModule.development.text}}</td>
+            </tr>
+            <tr>
+                <td><b>{{moduleDevelopmentSelectionLng}}</b>{{selectedModule.development.selection}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <center>
+                        <button>
+                            {{moduleDevelopmentDocumentsLng}}
+                        </button>
+                    </center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>
+                        <button>
+                            {{moduleSubmodulesLng}}
                         </button>
                     </center>
                 </td>
