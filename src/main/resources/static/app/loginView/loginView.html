@@ -14,13 +14,13 @@ body {
 <form class="body" role="form" ng-submit="login()" ng-show="!authenticated">
     <center>
         <div>
-            <label for="username">Usuario:</label> <input type="text"
+            <label for="username">{{logInUserLng}}</label> <input type="text"
                                                           id="username" name="username" ng-model="credentials.username"/>
         </div>
         <div>
-            <label for="password">Contraseña:</label> <input type="password"
+            <label for="password">{{logInPassLng}}</label> <input type="password"
                                                              id="password" name="password" ng-model="credentials.password"/>
         </div>
-        <button type="submit" class="btn btn-primary">Entrar</button>
+        <button type="submit" class="btn btn-primary">{{logInButtonLng}}</button>
     </center>
 </form>
