@@ -5,7 +5,7 @@ angular.module('myApp', [
   'ngRoute',
   'myApp.loginView',
   'myApp.mainModules',
-  'myApp.view2',
+  'myApp.moduleView',
   'services.factory',
   'language.setting',
   'myApp.version'

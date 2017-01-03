@@ -1,3 +1,40 @@
-<div ng-show="authenticated">
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.selected {
+  background-color: #ce8483;
+}
+</style>
+</head>
+<div ng-show="authenticated">
+    <label><b>{{mainModulesLng}}</b></label>
+    <table ng-model="mainModulesList" ng-change="mainModulesList">
+        <tbody>
+        <tr>
+            <th>{{moduleNameLng}}</th>
+            <th>{{moduleOwnerLng}}</th>
+        </tr>
+        <tr ng-repeat="module in mainModulesList" ng-click="selectModule(module.name)" ng-class="{selected: module.name === selectedModule}">
+            <td>{{module.name}}</td>
+            <td>{{module.owner.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <center>
+        <button ng-show="moduleIsSelected" ng-click="goToSelectedModule()">{{goToModuleBtnLng}}</button>
+    </center>
 </div>

@@ -18,7 +18,6 @@
   <ul class="menu">
     <li><a ng-show="!authenticated" ng-controller="LogoutCtrl" href="#!/loginView">{{logInLng}}</a></li>
     <li><a ng-show="authenticated" ng-controller="LogoutCtrl" href="#!/mainModules">{{mainModulesLng}}</a></li>
-    <li><a ng-show="authenticated" ng-controller="LogoutCtrl" href="#!/view2">view2</a></li>
     <li><a ng-show="authenticated" ng-controller="LogoutCtrl" ng-click="logout()">{{logOutLng}}</a></li>
   </ul>
 
@@ -39,7 +38,7 @@
   <script src="language/setLang.js"></script>
   <script src="app.js"></script>
   <script src="mainModules/mainModules.js"></script>
-  <script src="view2/view2.js"></script>
+  <script src="moduleView/moduleView.js"></script>
   <script src="loginView/loginView.js"></script>
   <script src="services/services.js"></script>
   <script src="components/version/version.js"></script>
