@@ -1,1 +1,70 @@
-<p>This is the partial for moduleView.</p>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    .selected {
+      background-color: #ce8483;
+    }
+</style>
+</head>
+<div>
+    <center>
+        <h1>
+            <b>
+                {{actualModuleLng}}{{selectedModule.name}}
+            </b>
+        </h1>
+        <br>
+        <h2>
+            <b>
+                {{actualModuleProprietorLng}}{{selectedModule.owner.name}}
+            </b>
+        </h2>
+        <br>
+        <p>
+            {{actualModuleInitialDateLng}}{{selectedModule.initialDate  | date:'medium'}}
+        </p>
+        <table ng-model="selectedModule" ng-change="selectedModule">
+            <tr>
+                <th>
+                    <center>
+                        {{moduleStartLng}}
+                    </center>
+                </th>
+            </tr>
+            <tr>
+                <td><b>{{moduleStartTextLng}}</b>{{selectedModule.start.text}}</td>
+            </tr>
+            <tr>
+                <td><b>{{moduleStartSelectionLng}}</b>{{selectedModule.start.selection}}</td>
+            </tr>
+            <tr>
+                <td><b>{{moduleMaintainsFrequencyLng}}</b>{{(selectedModule.start.frequency)?YesLng:NoLng}}</td>
+            </tr>
+            <tr>
+                <td><b>{{moduleEstimatedDateLng}}</b>{{selectedModule.start.estimateDate  | date:'medium'}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <center>
+                        <button>
+                            {{moduleStartDocuments}}
+                        </button>
+                    </center>
+                </td>
+            </tr>
+        </table>
+    </center>
+</div>

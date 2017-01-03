@@ -12,7 +12,7 @@ angular.module('myApp', [
 ]).
 config(['$locationProvider', '$routeProvider', '$httpProvider',function($locationProvider, $routeProvider, $httpProvider) {
     $locationProvider.hashPrefix('!');
-    $routeProvider.otherwise({redirectTo: '/loginView'});
+    $routeProvider.otherwise({redirectTo: '/'});
     $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 }])
 .controller('LogoutCtrl', ['$rootScope', '$scope', '$http' , '$location',function($rootScope, $scope, $http , $location) {

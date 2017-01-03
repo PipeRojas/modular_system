@@ -17,9 +17,9 @@ angular.module('myApp.mainModules', ['ngRoute'])
             console.info(value);
             $scope.moduleIsSelected=false;
             $scope.mainModulesList=value;
-            $scope.selectedModule='';
-            $scope.selectModule=function(moduleName){
-                $scope.selectedModule=moduleName;
+            $rootScope.selectedModule;
+            $scope.selectModule=function(module){
+                $rootScope.selectedModule=module;
                 $scope.moduleIsSelected=true;
             };
             $scope.goToSelectedModule=function(){

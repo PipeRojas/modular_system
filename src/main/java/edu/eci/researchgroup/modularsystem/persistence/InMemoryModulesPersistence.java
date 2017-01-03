@@ -177,7 +177,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
 
     public static void staticModules(InMemoryModulesPersistence pers) {
         Start s = new Start();
-        s.setEstimateDate(new Date());
+        s.setEstimateDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
         s.setFrequency(true);
         s.setSelection("test selection s");
         s.setText("test text s");
@@ -202,21 +202,21 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         mod.setOwner(u);
 
         Start s2 = new Start();
-        s2.setEstimateDate(new Date());
-        s2.setFrequency(true);
-        s2.setSelection("A");
-        s2.setText("B");
+        s2.setEstimateDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
+        s2.setFrequency(false);
+        s2.setSelection("A2");
+        s2.setText("B2");
         Development d2 = new Development();
-        d2.setSelection("A");
-        d2.setText("B");
+        d2.setSelection("A2");
+        d2.setText("B2");
         End e2 = new End();
-        e2.setSelection("a");
-        e2.setText("b");
-        e2.setStartAndDevelopmentRemarks("c");
+        e2.setSelection("a2");
+        e2.setText("b2");
+        e2.setStartAndDevelopmentRemarks("c2");
         User u2 = new User();
         u2.setName("user2");
-        u2.setSelection("a");
-        u2.setText("b");
+        u2.setSelection("a2");
+        u2.setText("b2");
         Module mod2 = new Module();
         mod2.setInitialDate(new Date());
         mod2.setIteration(true);
@@ -227,7 +227,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         mod2.setOwner(u2);
 
         Start s11 = new Start();
-        s11.setEstimateDate(new Date());
+        s11.setEstimateDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
         s11.setFrequency(true);
         s11.setSelection("1");
         s11.setText("2");
@@ -252,7 +252,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         subMod.setOwner(u11);
 
         Start s12 = new Start();
-        s12.setEstimateDate(new Date());
+        s12.setEstimateDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
         s12.setFrequency(true);
         s12.setSelection("1");
         s12.setText("2");

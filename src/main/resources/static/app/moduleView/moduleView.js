@@ -9,6 +9,6 @@ angular.module('myApp.moduleView', ['ngRoute'])
   });
 }])
 
-.controller('moduleViewCtrl', [function() {
+.controller('moduleViewCtrl', ['$scope', '$rootScope', '$location', function($scope, $rootScope, $location) {
 
 }]);
