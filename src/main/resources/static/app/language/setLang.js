@@ -9,13 +9,14 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.logInButtonLng="LogIn";
     $rootScope.logInLng="Log In";
     $rootScope.logOutLng="Log Out";
-    $rootScope.mainModulesToMenuLng="Main Modules";
-    $rootScope.mainModulesLng="Main Modules (select one to see details)";
+    $rootScope.mainModulesLng="Main Modules";
+    $rootScope.selectOneForDetailsLng="(select one to see details)";
     $rootScope.moduleNameLng="Module Name";
     $rootScope.moduleOwnerLng="Module Owner";
     $rootScope.goToModuleBtnLng="Go to selected module";
     $rootScope.actualModuleLng="Actual Module: ";
     $rootScope.modularSystemTitleLng="Modular System";
+    $rootScope.modularSystemVersionLng="App Version: ";
     $rootScope.modularSystemSubTitleLng="Modules Unified Management";
     $rootScope.actualModuleProprietorLng="Module Proprietor: ";
     $rootScope.actualModuleInitialDateLng="Module Initial Date: ";
@@ -25,6 +26,8 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.moduleMaintainsFrequencyLng="This Module Maintains a Frequency? ";
     $rootScope.YesLng="Yes";
     $rootScope.NoLng="No";
+    $rootScope.backLng="Back";
+    $rootScope.failedAuth="Permission denied: Authentication Failed";
     $rootScope.moduleEstimatedDateLng="Module Estimated Date: ";
     $rootScope.moduleStartDocumentsLng="Module Start Documents";
     $rootScope.moduleDevelopmentLng="Module Development";
@@ -32,4 +35,10 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.moduleDevelopmentSelectionLng="Module Development Selection: ";
     $rootScope.moduleDevelopmentDocumentsLng="Module Development Documents";
     $rootScope.moduleSubmodulesLng="Sub-Modules of this Module";
+    $rootScope.moduleEndLng="Module End";
+    $rootScope.moduleEndTextLng="Module End Text: ";
+    $rootScope.moduleEndSelectionLng="Module End Selection: ";
+    $rootScope.moduleStartDevelopmentRemarksLng="Module Start & Development Remarks: ";
+    $rootScope.moduleIsIterableLng="Module is Iterable? ";
+    $rootScope.moduleRemarksLng="Module Remarks";
  }]);

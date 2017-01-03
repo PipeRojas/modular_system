@@ -15,10 +15,11 @@
     }
 
     .selected {
-      background-color: #ce8483;
+      background-color: #A9F5F2;
     }
 </style>
 </head>
+<br>
 <div>
     <center>
         <h1>
@@ -32,10 +33,18 @@
                 {{actualModuleProprietorLng}}{{selectedModule.owner.name}}
             </b>
         </h2>
+        <p>
+            <b>{{moduleIsIterableLng}}</b>{{(selectedModule.iteration)?YesLng:NoLng}}
+        </p>
         <br>
         <p>
             {{actualModuleInitialDateLng}}{{selectedModule.initialDate  | date:'medium'}}
         </p>
+    </center>
+</div>
+<br>
+<div ng-show="!visibleStartDocuments&&!visibleDevelopmentDocuments&&!visibleSubmodules">
+    <center>
         <table bgcolor="#F6E3CE" ng-model="selectedModule" ng-change="selectedModule">
             <tr>
                 <th>
@@ -59,7 +68,7 @@
             <tr>
                 <td>
                     <center>
-                        <button>
+                        <button ng-click="showStartDocuments()">
                             {{moduleStartDocumentsLng}}
                         </button>
                     </center>
@@ -84,7 +93,7 @@
             <tr>
                 <td>
                     <center>
-                        <button>
+                        <button ng-click="showDevelopmentDocuments()">
                             {{moduleDevelopmentDocumentsLng}}
                         </button>
                     </center>
@@ -93,12 +102,93 @@
             <tr>
                 <td>
                     <center>
-                        <button>
+                        <button ng-click="showSubmodules()">
                             {{moduleSubmodulesLng}}
                         </button>
                     </center>
                 </td>
             </tr>
         </table>
+        <br>
+        <table bgcolor="#CEF6CE" ng-model="selectedModule" ng-change="selectedModule">
+            <tr>
+                <th>
+                    <center>
+                        {{moduleEndLng}}
+                    </center>
+                </th>
+            </tr>
+            <tr>
+                <td><b>{{moduleEndTextLng}}</b>{{selectedModule.end.text}}</td>
+            </tr>
+            <tr>
+                <td><b>{{moduleEndSelectionLng}}</b>{{selectedModule.end.selection}}</td>
+            </tr>
+            <tr>
+                <td><b>{{moduleStartDevelopmentRemarksLng}}</b>{{selectedModule.end.startAndDevelopmentRemarks}}</td>
+            </tr>
+        </table>
+        <br>
+        <table bgcolor="#A9F5E1" ng-model="selectedModule" ng-change="selectedModule">
+            <tbody>
+            <tr>
+                <th><center>{{moduleRemarksLng}}</center></th>
+            </tr>
+            <tr ng-repeat="remark in selectedModule.remarks">
+                <td>{{remark}}</td>
+            </tr>
+            </tbody>
+        </table>
     </center>
 </div>
+<br>
+<div ng-show="visibleStartDocuments">
+    <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
+        <tbody>
+        <tr>
+            <th><center>{{moduleStartDocumentsLng}} {{selectOneForDetailsLng}}</center></th>
+        </tr>
+        <tr ng-repeat="document in selectedModule.start.documents">
+            <td ng-click="goToDocument(document)">{{document}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button ng-click="showStartDocuments()">{{backLng}}</button>
+</div>
+<br>
+<div ng-show="visibleDevelopmentDocuments">
+    <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
+        <tbody>
+        <tr>
+            <th><center>{{moduleDevelopmentDocumentsLng}} {{selectOneForDetailsLng}}</center></th>
+        </tr>
+        <tr ng-repeat="document in selectedModule.development.documents">
+            <td ng-click="goToDocument(document)">{{document}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button ng-click="showDevelopmentDocuments()">{{backLng}}</button>
+</div>
+<br>
+<div ng-show="visibleSubmodules">
+    <center>
+        <h1>
+            <b>{{moduleSubmodulesLng}} {{selectOneForDetailsLng}}</b>
+        </h1>
+    </center>
+    <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
+        <tbody>
+        <tr>
+            <th>{{moduleNameLng}}</th>
+            <th>{{moduleOwnerLng}}</th>
+        </tr>
+        <tr ng-repeat="module in selectedModule.development.subModules" ng-click="selectSubModule(module)" ng-class="{selected: module.name === selectedSubModule.name}">
+            <td>{{module.name}}</td>
+            <td>{{module.owner.name}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <button ng-show="SubModuleIsSelected" ng-click="goToSubmodule()">{{goToModuleBtnLng}}</button>
+    <button ng-click="showSubmodules()">{{backLng}}</button>
+</div>
+<br>

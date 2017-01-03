@@ -200,6 +200,10 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         mod.setDevelopment(d);
         mod.setEnd(e);
         mod.setOwner(u);
+        mod.addRemark("Remark 1");
+        mod.addRemark("Remark 2");
+        mod.addStartDocument("https://www.batiburrillo.net/documentos/raiz_cuadrada.pdf");
+        mod.addDevelopmentDocument("https://www.batiburrillo.net/documentos/raiz_cuadrada.pdf");
 
         Start s2 = new Start();
         s2.setEstimateDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
@@ -219,7 +223,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         u2.setText("b2");
         Module mod2 = new Module();
         mod2.setInitialDate(new Date());
-        mod2.setIteration(true);
+        mod2.setIteration(false);
         mod2.setName("module2");
         mod2.setStart(s2);
         mod2.setDevelopment(d2);
