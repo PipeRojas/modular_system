@@ -9,6 +9,16 @@ angular.module('myApp.mainModules', ['ngRoute'])
   });
 }])
 
-.controller('mainModulesCtrl', [function() {
+.controller('mainModulesCtrl', ['principalModules' , function(principalModules) {
+    principalModules.get()
+    .$promise.then(
+        //success
+        function( value ){
+            console.info(value);
+        },
+        //error
+        function( error ){
 
+        }
+    );
 }]);

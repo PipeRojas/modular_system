@@ -3,6 +3,6 @@
 angular.module('services.factory', ['ngRoute', 'ngResource'])
 
 .factory('principalModules', function($resource) {
-     return $resource('/parkings',{},
-     { get: { method: 'GET', isArray: true}});
+     return $resource('/modules/mainModules',{},
+     { get: { method: 'GET', isArray: false}});
  });
