@@ -7,6 +7,7 @@ package edu.eci.researchgroup.modularsystem.controller;
 
 import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
+import edu.eci.researchgroup.modularsystem.model.UserException;
 import edu.eci.researchgroup.modularsystem.services.ModulesManager;
 import java.io.File;
 import java.util.logging.Level;
@@ -49,7 +50,26 @@ public class ModulesController {
     @RequestMapping(method = RequestMethod.GET, path = "/mainModules")
     public ResponseEntity<?> getMainModules() {
         return new ResponseEntity<>(mm.getMainModules(), HttpStatus.ACCEPTED);
-
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, path = "/user/{userName}")
+    public ResponseEntity<?> getModulesByUser(@PathVariable String userName) {
+        try {
+            return new ResponseEntity<>(mm.getModulesByUser(userName), HttpStatus.ACCEPTED);
+        } catch (UserException ex) {
+            Logger.getLogger(ModulesController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, path = "/mainModules/{userName}")
+    public ResponseEntity<?> getMainModulesByUser(@PathVariable String userName) {
+        try {
+            return new ResponseEntity<>(mm.getMainModulesByUser(userName), HttpStatus.ACCEPTED);
+        } catch (UserException ex) {
+            Logger.getLogger(ModulesController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST)

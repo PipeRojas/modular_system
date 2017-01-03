@@ -11,10 +11,9 @@ import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
 import edu.eci.researchgroup.modularsystem.model.Start;
 import edu.eci.researchgroup.modularsystem.model.User;
-import java.util.ArrayList;
+import edu.eci.researchgroup.modularsystem.model.UserException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,9 +27,11 @@ import org.springframework.stereotype.Service;
 public class InMemoryModulesPersistence implements ModulesPersistence {
 
     private HashMap<String, Module> modulos;
+    private HashMap<String, HashMap<String, Module>> modulosPorUsuario;
 
     public InMemoryModulesPersistence() {
         modulos = new HashMap<>();
+        modulosPorUsuario = new HashMap<>();
         InMemoryModulesPersistence.staticModules(this);
     }
 
@@ -43,6 +44,11 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     public void addModule(Module mod) throws ModuleException {
         if (!checkModule(mod.getName())) {
             modulos.put(mod.getName(), mod);
+            String user = mod.getOwner().getName();
+            if (!modulosPorUsuario.containsKey(user)) {
+                modulosPorUsuario.put(user, new HashMap<>());
+            }
+            modulosPorUsuario.get(user).put(mod.getName(), mod);
         } else {
             throw new ModuleException("The module already exists");
         }
@@ -65,8 +71,10 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     @Override
     public void updateModule(String oldName, Module mod) throws ModuleException {
         if (checkModule(oldName)) {
-            addModule(mod);
+            String oldUser = modulos.get(oldName).getOwner().getName();
             modulos.remove(oldName);
+            modulosPorUsuario.get(oldUser).remove(oldName);
+            addModule(mod);
         } else {
             throw new ModuleException("The module doesn't exists");
         }
@@ -84,7 +92,9 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     @Override
     public void addDocumentToDevelopmentModule(String uri, String name) throws ModuleException {
         if (checkModule(name)) {
-            modulos.get(name).addDevelopmentDocument(uri);
+            Module mod = modulos.get(name);
+            mod.addDevelopmentDocument(uri);
+            updateModule(name, mod);
         } else {
             throw new ModuleException("The module doesn't exists");
         }
@@ -93,7 +103,9 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     @Override
     public void addRemarkToModule(String remark, String name) throws ModuleException {
         if (checkModule(name)) {
-            modulos.get(name).addRemark(remark);
+            Module mod = modulos.get(name);
+            mod.addRemark(remark);
+            updateModule(name, mod);
         } else {
             throw new ModuleException("The module doesn't exists");
         }
@@ -102,7 +114,10 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     @Override
     public void addSubModuleToModule(Module subModule, String name) throws ModuleException {
         if (checkModule(name)) {
-            if(!checkModule(subModule.getName())){
+            if (!checkModule(subModule.getName())) {
+                Module mod = modulos.get(name);
+                mod.addSubModule(subModule);
+                updateModule(name, mod);
                 addModule(subModule);
             }
             modulos.get(name).addSubModule(subModule);
@@ -113,39 +128,70 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
 
     @Override
     public Map<String, Module> getMainModules() {
-        Map<String,Module> main= new HashMap<>();
-        for(Module actual:modulos.values()){
-            boolean isSubModule=false;
-            for(Module otro:modulos.values()){
-                isSubModule=isSubModule || otro.hasSubModule(actual);
-                if(isSubModule){
+        Map<String, Module> main = new HashMap<>();
+        for (Module actual : modulos.values()) {
+            boolean isSubModule = false;
+            for (Module otro : modulos.values()) {
+                isSubModule = isSubModule || otro.hasSubModule(actual);
+                if (isSubModule) {
                     break;
                 }
             }
-            if(!isSubModule){
+            if (!isSubModule) {
                 main.put(actual.getName(), actual);
             }
         }
         return main;
     }
-    
+
+    @Override
+    public Map<String, Module> getModulesByUser(String userName) throws UserException {
+        if (modulosPorUsuario.containsKey(userName)) {
+            return modulosPorUsuario.get(userName);
+        } else {
+            throw new UserException("The user does not own any module");
+        }
+    }
+
+    @Override
+    public Map<String, Module> getMainModulesByUser(String userName) throws UserException {
+        if (modulosPorUsuario.containsKey(userName)) {
+            Map<String, Module> main = new HashMap<>();
+            for (Module actual : modulosPorUsuario.get(userName).values()) {
+                boolean isSubModule = false;
+                for (Module otro : modulos.values()) {
+                    isSubModule = isSubModule || otro.hasSubModule(actual);
+                    if (isSubModule) {
+                        break;
+                    }
+                }
+                if (!isSubModule) {
+                    main.put(actual.getName(), actual);
+                }
+            }
+            return main;
+        } else {
+            throw new UserException("The user does not own any module");
+        }
+    }
+
     public static void staticModules(InMemoryModulesPersistence pers) {
         Start s = new Start();
         s.setEstimateDate(new Date());
         s.setFrequency(true);
-        s.setSelection("A");
-        s.setText("B");
+        s.setSelection("test selection s");
+        s.setText("test text s");
         Development d = new Development();
-        d.setSelection("A");
-        d.setText("B");
+        d.setSelection("test selection d");
+        d.setText("test text d");
         End e = new End();
-        e.setSelection("a");
-        e.setText("b");
-        e.setStartAndDevelopmentRemarks("c");
+        e.setSelection("test selection e");
+        e.setText("test text e");
+        e.setStartAndDevelopmentRemarks("test remarks e");
         User u = new User();
         u.setName("user");
-        u.setSelection("a");
-        u.setText("b");
+        u.setSelection("test user selection");
+        u.setText("test user text");
         Module mod = new Module();
         mod.setInitialDate(new Date());
         mod.setIteration(true);

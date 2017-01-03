@@ -28,11 +28,17 @@ These can be used alone like this:
 | :------ | :----- | :---------- | :-------- | :------ |
 | `/users/{userName}` | **GET** | Returns the requested user | | **User** |
 | `/modules/{moduleName}` | **GET** | Returns the requested module | | **Module** |
-| `/modules/mainModules` | **GET** | Returns the requested module | | **Map < String , Module >** |
+| `/modules/mainModules` | **GET** | Returns the main modules, those which aren't submodules of any module | | **Map < String , Module >** |
+| `/modules/user/{userName}` | **GET** | Returns all the modules registered with userName as its owner | | **Map < String , Module >** |
+| `/modules/mainModules/{userName}` | **GET** | Returns all the main modules registered with userName as its owner | | **Map < String , Module >** |
 | `/users` | **POST** | Saves the given user | **User** | |
 | `/modules` | **POST** | Saves the given module | **Module** | |
 | `/users/{oldUserName}` | **PUT** | Updates the selected user with the given information | **User** | |
 | `/modules/{oldModuleName}` | **PUT** | Updates the selected module with the given information | **Module** | |
+| `/modules/remark/{moduleName}` | **PUT** | Adds a remark to the selected module | **String** | |
+| `/modules/startDocument/{moduleName}` | **PUT** | Adds a file to the start phase of the selected module | **File** | |
+| `/modules/developmentDocument/{moduleName}` | **PUT** | Adds a file to the development phase of the selected module | **File** | |
+| `/modules/subModule/{moduleName}` | **PUT** | Adds a remark to the selected module | **Module** | |
 
 ### URL Parameters
 

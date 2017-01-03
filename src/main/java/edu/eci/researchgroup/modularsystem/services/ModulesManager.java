@@ -7,6 +7,7 @@ package edu.eci.researchgroup.modularsystem.services;
 
 import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
+import edu.eci.researchgroup.modularsystem.model.UserException;
 import edu.eci.researchgroup.modularsystem.persistence.ModulesPersistence;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +40,8 @@ public class ModulesManager {
     }
 
     /**
+     * Sets a persistence component to the manager
+     *
      * @param persist the persist to set
      */
     public void setPersist(ModulesPersistence persist) {
@@ -46,6 +49,7 @@ public class ModulesManager {
     }
 
     /**
+     * Checks if a module is registered or not
      *
      * @param name the name of the module to check
      * @return true if the module exits, false otherwise
@@ -55,6 +59,7 @@ public class ModulesManager {
     }
 
     /**
+     * Registers a module
      *
      * @param mod the module to add
      * @throws ModuleException if the module already exists
@@ -64,6 +69,7 @@ public class ModulesManager {
     }
 
     /**
+     * Returns all the registered modules
      *
      * @return all the registered modules
      */
@@ -72,6 +78,7 @@ public class ModulesManager {
     }
 
     /**
+     * Returns the selected module given its name
      *
      * @param name the name of the wanted module
      * @return the requested module
@@ -163,10 +170,35 @@ public class ModulesManager {
 
     /**
      * Returns the main modules, those who aren't submodules of other modules
+     *
      * @return the main modules, those who aren't submodules of other modules
      */
     public Map<String, Module> getMainModules() {
         return persist.getMainModules();
+    }
+
+    /**
+     * Returns all the modules which have user as its owner
+     *
+     * @param userName the name of the user who owns the modules
+     * @return all the modules which have user as its owner
+     * @throws UserException if the user isn't registered
+     */
+    public Map<String, Module> getModulesByUser(String userName) throws UserException {
+        return persist.getModulesByUser(userName);
+    }
+
+    /**
+     * Returns all the the main modules, those which aren't submodules of other
+     * modules which have user as its owner
+     *
+     * @param userName the name of the user who owns the modules
+     * @return all the the main modules, those which aren't submodules of other
+     * modules which have user as its owner
+     * @throws UserException if the user isn't registered
+     */
+    public Map<String, Module> getMainModulesByUser(String userName) throws UserException {
+        return persist.getMainModulesByUser(userName);
     }
 
 }
