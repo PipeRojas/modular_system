@@ -187,6 +187,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         e.setSelection("test selection e");
         e.setText("test text e");
         e.setStartAndDevelopmentRemarks("test remarks e");
+        e.setFinalDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
         User u = new User();
         u.setName("user");
         u.setSelection("test user selection");
@@ -216,6 +217,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         e2.setSelection("a2");
         e2.setText("b2");
         e2.setStartAndDevelopmentRemarks("c2");
+        e2.setFinalDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
         User u2 = new User();
         u2.setName("user2");
         u2.setSelection("a2");
@@ -241,6 +243,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         e11.setSelection("1");
         e11.setText("2");
         e11.setStartAndDevelopmentRemarks("1");
+        e11.setFinalDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
         User u11 = new User();
         u11.setName("user11");
         u11.setSelection("a");
@@ -266,6 +269,7 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
         e12.setSelection("1");
         e12.setText("2");
         e12.setStartAndDevelopmentRemarks("1");
+        e12.setFinalDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
         User u12 = new User();
         u12.setName("user12");
         u12.setSelection("a");

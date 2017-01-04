@@ -5,11 +5,27 @@
  */
 package edu.eci.researchgroup.modularsystem.model;
 
+import java.util.Date;
+
 /**
  *
  * @author Julian David Devia Serna
  */
 public class End {
+
+    /**
+     * @return the finalDate
+     */
+    public Date getFinalDate() {
+        return finalDate;
+    }
+
+    /**
+     * @param finalDate the finalDate to set
+     */
+    public void setFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
+    }
 
     /**
      * @return the text
@@ -55,6 +71,7 @@ public class End {
     private String text;
     private String selection;
     private String startAndDevelopmentRemarks;
+    private Date finalDate;
     
     @Override
     public boolean equals(Object o){
