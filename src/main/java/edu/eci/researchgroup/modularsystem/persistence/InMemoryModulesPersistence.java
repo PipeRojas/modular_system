@@ -114,13 +114,12 @@ public class InMemoryModulesPersistence implements ModulesPersistence {
     @Override
     public void addSubModuleToModule(Module subModule, String name) throws ModuleException {
         if (checkModule(name)) {
+            Module mod = modulos.get(name);
+            mod.addSubModule(subModule);
+            updateModule(name, mod);
             if (!checkModule(subModule.getName())) {
-                Module mod = modulos.get(name);
-                mod.addSubModule(subModule);
-                updateModule(name, mod);
                 addModule(subModule);
             }
-            modulos.get(name).addSubModule(subModule);
         } else {
             throw new ModuleException("The module doesn't exists");
         }
