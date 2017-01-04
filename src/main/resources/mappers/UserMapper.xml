@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.eci.researchgroup.modularsystem.persistence.daos.mybatis.mappers.UserMapper">
+
+    <resultMap type='User' id='UserResult'>
+        <id property='name' column='name'/>
+        <result property='text' column='text'/>
+        <result property='selection' column='selection'/>
+    </resultMap>
+    <!--ejemplos
+    <insert id='insertEquipo' parameterType='map'>
+        insert into Equipos_Complejos 
+        (serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) 
+        values(#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
+        #{EqComplejo.estado},#{EqComplejo.modelo_Eq.nombre},#{EqComplejo.asegurado},#{EqComplejo.tiempoRestante})
+    </insert>
+
+    <update id='update' parameterType='map'>
+        UPDATE
+            Equipos_Complejos SET 
+            disponibilidad=#{Eq_Nuevo.disponibilidad},estado=#{Eq_Nuevo.estado},
+            asegurado=#{Eq_Nuevo.asegurado},
+            vida_restante=#{Eq_Nuevo.tiempoRestante}
+        WHERE
+            serial=#{Eq_Viejo.serial}
+    </update>
+
+    <delete id='delete' parameterType='map'>
+        delete from Equipos_Complejos as ec where ec.serial=#{Eq_Complejo.serial} or ec.placa=#{Eq_Complejo.placa}
+    </delete>
+
+    <select id='loadAll' resultMap='EquipoComplejoResult'>
+        SELECT 
+            ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+            ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
+            mo.marca as mo_marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+            mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
+            ord.proveedor AS ord_proveedor, 
+            ord.fecha_compra AS  ord_fecha_compra, 
+            ord.fecha_garantia AS  ord_fecha_garantia,
+            ord.codigo_orden_compra AS ord_codigo_orden_compra,
+            ord.codigo_activo AS ord_codigo_activo 
+        FROM 
+            Equipos_Complejos as ec 
+            LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
+            LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
+        ORDER BY
+            ec.vida_restante asc
+            
+    </select>
+    ejemplos-->
+
+</mapper>

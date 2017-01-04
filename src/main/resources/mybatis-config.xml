@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <typeAliases>
+        <typeAlias type='edu.eci.researchgroup.modularsystem.model.User' alias='User'/>
+        <typeAlias type='edu.eci.researchgroup.modularsystem.model.Start' alias='Start'/>
+        <typeAlias type='edu.eci.researchgroup.modularsystem.model.Development' alias='Development'/>
+        <typeAlias type='edu.eci.researchgroup.modularsystem.model.End' alias='End'/>
+        <typeAlias type='edu.eci.researchgroup.modularsystem.model.Module' alias='Module'/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="corg.postgres.jdbc.Driver" />
+                <property name="url" value="jdbc:postgres://mzmyntsmpdxzgg:0c3453217f36d2cb4e7fd1e7580db41305115432318183e538b4eb0a2d34ccc9@ec2-54-225-104-61.compute-1.amazonaws.com:5432/dp7bium67ib3s" />
+                <property name="username" value="mzmyntsmpdxzgg" />
+                <property name="password" value="0c3453217f36d2cb4e7fd1e7580db41305115432318183e538b4eb0a2d34ccc9" />
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mappers/UserMapper.xml"></mapper>
+        <mapper resource="mappers/ModuleMapper.xml"></mapper>
+    </mappers>
+
+</configuration>
