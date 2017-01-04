@@ -39,7 +39,7 @@ angular.module('myApp.loginView', ['ngRoute'])
             } else {
                 $location.path("/loginView");
                 $scope.error = true;
-                alert($rootScope.failedAuth);
+                alert($rootScope.failedAuthLng);
             }
         });
     };

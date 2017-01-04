@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    .selected {
+      background-color: #A9F5F2;
+    }
+</style>
+</head>
+<br>
+<form ng-show="authenticated">
+    <h1>
+        <b>{{createModuleLng}}</b>
+    </h1>
+    <br>
+    <center>
+        <label for="moduleName"><b>{{createModuleNameLng}}</b></label>
+        <input id="moduleName" ng-model = "moduleName" type="text">
+        <br>
+        <label for="moduleOwner"><b>{{createModuleOwnerNameLng}}</b></label>
+        <input id="moduleOwner" ng-model = "moduleOwnerName" type="text">
+        <br>
+        <label for="moduleInitialDate"><b>{{createModuleInitialDateLng}}</b></label>
+        <input ng-model="moduleInitialDate" id="moduleInitialDate" type="date">
+        <br>
+    </center>
+    <h2>
+        <b>{{createModuleStartDataLng}}</b>
+    </h2>
+    <center>
+        <br>
+        <label for="moduleStartText"><b>{{createModuleStartTextLng}}</b></label>
+        <br>
+        <textarea ng-model="moduleStartText" id="moduleStartText" rows="4" cols="50">
+        </textarea>
+        <br>
+        <div class="mui-select">
+            <label for="repeatSelect1">
+                <b>{{createModuleStartSelectionLng}}
+                </b>
+            </label>
+            <select id="repeatSelect1" ng-model="moduleStartSelection">
+                <option ng-repeat="option in moduleStartSelectionOpt.availableOptions" value="{{option.name}}">{{option.name}}</option>
+            </select>
+        </div>
+        <br>
+        <div class="mui-select">
+            <label for="repeatSelect2">
+                <b>{{createModuleMaintainsFrequencyLng}}
+                </b>
+            </label>
+            <select id="repeatSelect2" ng-model="moduleMaintainsFrequency">
+                <option ng-repeat="option in moduleBooleanOpt.availableOptions" value="{{option.id}}">{{option.name}}</option>
+            </select>
+            <br>
+            <strong>
+                <b>{{moduleFrequencyNoteLng}}
+                </b>
+            </strong>
+        </div>
+        <br>
+        <label for="moduleEstimatedDate"><b>{{createModuleEstimatedDateLng}}</b></label>
+        <input ng-model="moduleEstimatedDate" id="moduleEstimatedDate" type="date">
+        <br>
+    </center>
+    <br>
+    <button ng-click="registerNewModule()">{{registerModuleLng}}</button>
+</form>

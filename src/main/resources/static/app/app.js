@@ -6,6 +6,7 @@ angular.module('myApp', [
   'myApp.loginView',
   'myApp.mainModules',
   'myApp.moduleView',
+  'myApp.createModule',
   'services.factory',
   'language.setting',
   'myApp.version'

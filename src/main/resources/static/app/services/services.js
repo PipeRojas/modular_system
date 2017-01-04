@@ -7,4 +7,10 @@ angular.module('services.factory', ['ngRoute', 'ngResource'])
 })
 .factory('getModuleByName', function($resource){
       return $resource('/modules/:moduleName',{id:"@_moduleName"},{get: { method: 'GET'}});
+})
+.factory('getUserByName', function($resource){
+      return $resource('/users/:userName',{id:"@_userName"},{get: { method: 'GET'}});
+})
+.factory('modules', function($resource){
+      return $resource('/modules',{},{get: { method: 'GET'}});
 });

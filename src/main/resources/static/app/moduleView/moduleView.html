@@ -20,7 +20,7 @@
 </style>
 </head>
 <br>
-<div>
+<div ng-show="authenticated">
     <center>
         <h1>
             <b>
@@ -43,8 +43,13 @@
     </center>
 </div>
 <br>
-<div ng-show="!visibleStartDocuments&&!visibleDevelopmentDocuments&&!visibleSubmodules">
+<div ng-show="!visibleStartDocuments&&!visibleDevelopmentDocuments&&!visibleSubmodules&&authenticated">
     <center>
+        <strong>
+            <b>{{moduleFrequencyNoteLng}}
+            </b>
+        </strong>
+        <br>
         <table bgcolor="#F6E3CE" ng-model="selectedModule" ng-change="selectedModule">
             <tr>
                 <th>
@@ -142,7 +147,7 @@
     </center>
 </div>
 <br>
-<div ng-show="visibleStartDocuments">
+<div ng-show="visibleStartDocuments&&authenticated">
     <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
         <tbody>
         <tr>
@@ -156,7 +161,7 @@
     <button ng-click="showStartDocuments()">{{backLng}}</button>
 </div>
 <br>
-<div ng-show="visibleDevelopmentDocuments">
+<div ng-show="visibleDevelopmentDocuments&&authenticated">
     <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
         <tbody>
         <tr>
@@ -170,7 +175,7 @@
     <button ng-click="showDevelopmentDocuments()">{{backLng}}</button>
 </div>
 <br>
-<div ng-show="visibleSubmodules">
+<div ng-show="visibleSubmodules&&authenticated">
     <center>
         <h1>
             <b>{{moduleSubmodulesLng}} {{selectOneForDetailsLng}}</b>
