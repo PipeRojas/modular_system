@@ -9,7 +9,7 @@ angular.module('myApp.createModule', ['ngRoute'])
   });
 }])
 
-.controller('createModuleCtrl', ['modules', 'getUserByName', '$scope','$rootScope','$http','$location', function(modules, getUserByName, $scope, $rootScope, $http, $location) {
+.controller('createModuleCtrl', ['modules', 'userByName', '$scope','$rootScope','$http','$location', function(modules, userByName, $scope, $rootScope, $http, $location) {
     $scope.moduleName='';
     $scope.moduleOwnerName='';
     $scope.moduleInitialDate='';
@@ -31,7 +31,7 @@ angular.module('myApp.createModule', ['ngRoute'])
         $scope.validData=$scope.validData&&$scope.moduleEstimatedDate!=null;
 
         if($scope.validData){
-            getUserByName.get({userName:$scope.moduleOwnerName})
+            userByName.get({userName:$scope.moduleOwnerName})
             .$promise.then(
                //success
                function( value ){
@@ -58,7 +58,19 @@ angular.module('myApp.createModule', ['ngRoute'])
                         "development":$scope.newModuleDevelopment,
                         "end":$scope.newModuleEnd
                     };
-                    modules.save($scope.newModule,function(){});
+                    modules.save($scope.newModule,function(){})
+                    .$promise.then(
+                       //success
+                       function( value ){
+                            alert($rootScope.moduleSavedLng);
+                            $rootScope.selectedModule=$scope.newModule;
+                            $location.path("/moduleView");
+                       },
+                       //error
+                       function( error ){
+                            alert($rootScope.errorSavingModuleLng);
+                       }
+                    );
                },
                //error
                function( error ){

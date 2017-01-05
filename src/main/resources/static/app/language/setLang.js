@@ -38,6 +38,7 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.moduleEndLng="Module End";
     $rootScope.moduleEndTextLng="Module End Text: ";
     $rootScope.moduleEndSelectionLng="Module End Selection: ";
+    $rootScope.moduleEndFinalDateLng="Module Final Date: ";
     $rootScope.moduleStartDevelopmentRemarksLng="Module Start & Development Remarks: ";
     $rootScope.moduleIsIterableLng="Module is Iterable? ";
     $rootScope.moduleRemarksLng="Module Remarks";
@@ -58,4 +59,19 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.registerModuleLng="Register Module";
     $rootScope.invalidDataLng="Invalid Data";
     $rootScope.userDoesntExistLng="The user does not exist in the database";
+    $rootScope.errorSavingModuleLng="An error occurred while registering the module, try again later";
+    $rootScope.moduleSavedLng="The module was saved successfully";
+    $rootScope.changesSavedLng="The changes was made successfully";
+    $rootScope.errorSavingChangesLng="An error occurred while registering the changes, try again later";
+    $rootScope.saveChangesLng="Save Changes";
+    $rootScope.editModuleDevelopmentLng="Edit Module Development";
+    $rootScope.moduleDevelopmentSelectionOpt1Lng="Development Selection Option 1";
+    $rootScope.moduleDevelopmentSelectionOpt2Lng="Development Selection Option 2";
+    $rootScope.moduleDevelopmentSelectionOpt3Lng="Development Selection Option 3";
+    $rootScope.moduleDevelopmentSelectionOpt4Lng="Development Selection Option 4";
+    $rootScope.editModuleEndLng="Edit Module End";
+    $rootScope.moduleEndSelectionOpt1Lng="End Selection Option 1";
+    $rootScope.moduleEndSelectionOpt2Lng="End Selection Option 2";
+    $rootScope.moduleEndSelectionOpt3Lng="End Selection Option 3";
+    $rootScope.moduleEndSelectionOpt4Lng="End Selection Option 4";
  }]);
