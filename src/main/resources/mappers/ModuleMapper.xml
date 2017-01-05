@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property='iteration' column='iteration'/>
 		<result property='initialDate' column='startDate'/>
 		<collection property='remarks' ofType='java.lang.String' javaType='list'>
-			<result column='remarks'/>
+			<result column='remark'/>
 		</collection>
 		<association property='start' resultMap='StartResult' columnPrefix='str_'/>
 		<association property='development' resultMap='DevelopmentResult' columnPrefix='dev_'/>
@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	<result property='text' column='texts'/>
     	<result property='selection' column='selections'/>
     	<result property='frecuency' column='frecuency'/>
-    	<result property='estimatedDate' column='estimatedDate'/>
+    	<result property='estimateDate' column='estimatedDate'/>
        	<collection property='documents' ofType='java.lang.String' javaType='list'>
 			<result column='documents'/>
 		</collection>
@@ -49,82 +49,264 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <select id='load' resultMap='ModuleResult'>
+    	SELECT
+    		mo.name as name,
+    		us.name as own_name,
+    		us.text as own_text,
+    		us.selection as own_selection,
+    		mo.iteration as iteration,
+    		mo.startDate as startDate,
+    		rem.remark as remark,
+    		mo.textS as str_texts,
+    		mo.selectionS as str_selections,
+    		mo.frecuency as str_frecuency,
+    		mo.estimatedDate as str_estimatedDate,
+    		start.uri as str_documents,
+    		mo.textD as dev_textd,
+    		mo.selectionD as dev_selectiond,
+    		dev.uri as dev_documents,
+    		mo.textE as end_texte,
+    		mo.selectionE as end_selectione,
+    		mo.finalDate as end_finalDate,
+    		mo.finalRemarks as end_finalRemarks
+    	FROM
+    		Modules as mo LEFT JOIN Users as us ON mo.owner=us.name 
+    		LEFT JOIN Modules_Remarks as rem ON mo.name=rem.Modules_name
+    		LEFT JOIN Modules_Dev_Doc as dev ON mo.name=dev.Modules_name
+    		LEFT JOIN Modules_Start_Doc as start ON mo.name=start.Modules_name
+    	WHERE
+    		mo.name=#{name};
     </select>
 
     <select id='loadSubMod' resultMap='ModuleResult'>
+    	SELECT
+    		mo.name as name,
+    		us.name as own_name,
+    		us.text as own_text,
+    		us.selection as own_selection,
+    		mo.iteration as iteration,
+    		mo.startDate as startDate,
+    		rem.remark as remark,
+    		mo.textS as str_texts,
+    		mo.selectionS as str_selections,
+    		mo.frecuency as str_frecuency,
+    		mo.estimatedDate as str_estimatedDate,
+    		start.uri as str_documents,
+    		mo.textD as dev_textd,
+    		mo.selectionD as dev_selectiond,
+    		dev.uri as dev_documents,
+    		mo.textE as end_texte,
+    		mo.selectionE as end_selectione,
+    		mo.finalDate as end_finalDate,
+    		mo.finalRemarks as end_finalRemarks
+    	FROM
+    		Modules as mo LEFT JOIN Users as us ON mo.owner=us.name 
+    		LEFT JOIN Modules_Remarks as rem ON mo.name=rem.Modules_name
+    		LEFT JOIN Modules_Dev_Doc as dev ON mo.name=dev.Modules_name
+    		LEFT JOIN Modules_Start_Doc as start ON mo.name=start.Modules_name
+    		LEFT JOIN Modules_SubModules as sub ON sub.Modules_submodule=mo.name
+    	WHERE
+    		sub.Modules_name=#{name}
+    	ORDER BY
+    		mo.name;
     </select>
 
     <select id='loadAll' resultMap='ModuleResult'>
+    	SELECT
+    		mo.name as name,
+    		us.name as own_name,
+    		us.text as own_text,
+    		us.selection as own_selection,
+    		mo.iteration as iteration,
+    		mo.startDate as startDate,
+    		rem.remark as remark,
+    		mo.textS as str_texts,
+    		mo.selectionS as str_selections,
+    		mo.frecuency as str_frecuency,
+    		mo.estimatedDate as str_estimatedDate,
+    		start.uri as str_documents,
+    		mo.textD as dev_textd,
+    		mo.selectionD as dev_selectiond,
+    		dev.uri as dev_documents,
+    		mo.textE as end_texte,
+    		mo.selectionE as end_selectione,
+    		mo.finalDate as end_finalDate,
+    		mo.finalRemarks as end_finalRemarks
+    	FROM
+    		Modules as mo LEFT JOIN Users as us ON mo.owner=us.name 
+    		LEFT JOIN Modules_Remarks as rem ON mo.name=rem.Modules_name
+    		LEFT JOIN Modules_Dev_Doc as dev ON mo.name=dev.Modules_name
+    		LEFT JOIN Modules_Start_Doc as start ON mo.name=start.Modules_name
+    	ORDER BY
+    		mo.name;
     </select>
 
     <select id='loadMain' resultMap='ModuleResult'>
+    	SELECT
+    		mo.name as name,
+    		us.name as own_name,
+    		us.text as own_text,
+    		us.selection as own_selection,
+    		mo.iteration as iteration,
+    		mo.startDate as startDate,
+    		rem.remark as remark,
+    		mo.textS as str_texts,
+    		mo.selectionS as str_selections,
+    		mo.frecuency as str_frecuency,
+    		mo.estimatedDate as str_estimatedDate,
+    		start.uri as str_documents,
+    		mo.textD as dev_textd,
+    		mo.selectionD as dev_selectiond,
+    		dev.uri as dev_documents,
+    		mo.textE as end_texte,
+    		mo.selectionE as end_selectione,
+    		mo.finalDate as end_finalDate,
+    		mo.finalRemarks as end_finalRemarks
+    	FROM
+    		Modules as mo LEFT JOIN Users as us ON mo.owner=us.name 
+    		LEFT JOIN Modules_Remarks as rem ON mo.name=rem.Modules_name
+    		LEFT JOIN Modules_Dev_Doc as dev ON mo.name=dev.Modules_name
+    		LEFT JOIN Modules_Start_Doc as start ON mo.name=start.Modules_name
+    	WHERE
+    		mo.name NOT IN (
+    			SELECT 
+    				Modules_submodule as module
+    			FROM
+    				Modules_Submodules
+    		)
+    	ORDER BY
+    		mo.name;
     </select>
 
     <select id='loadByUser' resultMap='ModuleResult'>
+    	SELECT
+    		mo.name as name,
+    		us.name as own_name,
+    		us.text as own_text,
+    		us.selection as own_selection,
+    		mo.iteration as iteration,
+    		mo.startDate as startDate,
+    		rem.remark as remark,
+    		mo.textS as str_texts,
+    		mo.selectionS as str_selections,
+    		mo.frecuency as str_frecuency,
+    		mo.estimatedDate as str_estimatedDate,
+    		start.uri as str_documents,
+    		mo.textD as dev_textd,
+    		mo.selectionD as dev_selectiond,
+    		dev.uri as dev_documents,
+    		mo.textE as end_texte,
+    		mo.selectionE as end_selectione,
+    		mo.finalDate as end_finalDate,
+    		mo.finalRemarks as end_finalRemarks
+    	FROM
+    		Modules as mo LEFT JOIN Users as us ON mo.owner=us.name 
+    		LEFT JOIN Modules_Remarks as rem ON mo.name=rem.Modules_name
+    		LEFT JOIN Modules_Dev_Doc as dev ON mo.name=dev.Modules_name
+    		LEFT JOIN Modules_Start_Doc as start ON mo.name=start.Modules_name
+    	WHERE
+    		mo.owner=#{userName}
+    	ORDER BY
+    		mo.name;
     </select>
 
     <select id='loadMainByUser' resultMap='ModuleResult'>
+    	SELECT
+    		mo.name as name,
+    		us.name as own_name,
+    		us.text as own_text,
+    		us.selection as own_selection,
+    		mo.iteration as iteration,
+    		mo.startDate as startDate,
+    		rem.remark as remark,
+    		mo.textS as str_texts,
+    		mo.selectionS as str_selections,
+    		mo.frecuency as str_frecuency,
+    		mo.estimatedDate as str_estimatedDate,
+    		start.uri as str_documents,
+    		mo.textD as dev_textd,
+    		mo.selectionD as dev_selectiond,
+    		dev.uri as dev_documents,
+    		mo.textE as end_texte,
+    		mo.selectionE as end_selectione,
+    		mo.finalDate as end_finalDate,
+    		mo.finalRemarks as end_finalRemarks
+    	FROM
+    		Modules as mo LEFT JOIN Users as us ON mo.owner=us.name 
+    		LEFT JOIN Modules_Remarks as rem ON mo.name=rem.Modules_name
+    		LEFT JOIN Modules_Dev_Doc as dev ON mo.name=dev.Modules_name
+    		LEFT JOIN Modules_Start_Doc as start ON mo.name=start.Modules_name
+    	WHERE
+    		mo.owner=#{userName} AND
+    		mo.name NOT IN (
+    			SELECT 
+    				Modules_submodule as module
+    			FROM
+    				Modules_Submodules
+    		)
+    	ORDER BY
+    		mo.name;
     </select>
 
     <insert id='insertModule' parameterType='map'>
+    	INSERT INTO 
+    		Modules 
+    		(name,owner,startDate,textS,selectionS,frecuency,estimatedDate,textD,selectionD,iteration,finalDate,textE,selectionE,finalRemarks) 
+		VALUES 
+			(#{module.name},#{module.owner.name},#{module.initialDate},#{module.start.text},#{module.start.selection},#{module.start.frecuency},#{module.start.estimateDate},#{module.development.text},#{module.development.selection},#{module.iteration},#{module.end.finalDate},#{module.end.text},#{module.end.selection},#{module.end.startAndDevelopmentRemarks});
     </insert>
 
 	<insert id='insertSubModule' parameterType='map'>
+		INSERT INTO 
+			Modules_Submodules 
+			(Modules_name,Modules_submodule)
+		VALUES 
+			(#{nameMod},#{nameSubMod});
     </insert>
 
     <insert id='insertDocStart' parameterType='map'>
+    	INSERT INTO 
+			Modules_Start_Doc 
+			(Modules_name,uri)
+		VALUES 
+			(#{name},#{uri});
     </insert>
 
     <insert id='insertDocDev' parameterType='map'>
+    	INSERT INTO 
+			Modules_Dev_Doc 
+			(Modules_name,uri)
+		VALUES 
+			(#{name},#{uri});
     </insert>
 
     <insert id='insertRemark' parameterType='map'>
+    	INSERT INTO 
+			Modules_Remarks 
+			(Modules_name,remark)
+		VALUES 
+			(#{name},#{remark});
     </insert>
 
     <update id='updateModule' parameterType='map'>
+    	UPDATE
+    		Modules
+    	SET
+    		owner = #{mod.owner.name},
+    		startDate = #{mod.initialDate},
+    		iteration = #{mod.iteration}
+    		textS = #{mod.start.text},
+    		selectionS = #{mod.start.selection},
+    		frecuency = #{mod.start.frecuency},
+    		estimatedDate = #{mod.start.estimateDate},
+    		textD = #{mod.development.text},
+    		selectionD = #{mod.development.selection},
+    		textE = #{mod.end.text},
+    		selectionE = #{mod.end.selection},
+    		finalDate = #{mod.end.finalDate},
+    		finalRemarks = #{mod.end.startAndDevelopmentRemarks}
+    	WHERE
+    		name=#{oldName};
     </update>
-
-<!--ejemplos
-    <insert id='insertEquipo' parameterType='map'>
-        insert into Equipos_Complejos 
-        (serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) 
-        values(#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
-        #{EqComplejo.estado},#{EqComplejo.modelo_Eq.nombre},#{EqComplejo.asegurado},#{EqComplejo.tiempoRestante})
-    </insert>
-
-    <update id='update' parameterType='map'>
-        UPDATE
-            Equipos_Complejos SET 
-            disponibilidad=#{Eq_Nuevo.disponibilidad},estado=#{Eq_Nuevo.estado},
-            asegurado=#{Eq_Nuevo.asegurado},
-            vida_restante=#{Eq_Nuevo.tiempoRestante}
-        WHERE
-            serial=#{Eq_Viejo.serial}
-    </update>
-
-    <delete id='delete' parameterType='map'>
-        delete from Equipos_Complejos as ec where ec.serial=#{Eq_Complejo.serial} or ec.placa=#{Eq_Complejo.placa}
-    </delete>
-
-    <select id='loadAll' resultMap='EquipoComplejoResult'>
-        SELECT 
-            ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
-            ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-            mo.marca as mo_marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
-            mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
-            ord.proveedor AS ord_proveedor, 
-            ord.fecha_compra AS  ord_fecha_compra, 
-            ord.fecha_garantia AS  ord_fecha_garantia,
-            ord.codigo_orden_compra AS ord_codigo_orden_compra,
-            ord.codigo_activo AS ord_codigo_activo 
-        FROM 
-            Equipos_Complejos as ec 
-            LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
-            LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
-        ORDER BY
-            ec.vida_restante asc
-            
-    </select>
-    ejemplos-->
 
 </mapper>
