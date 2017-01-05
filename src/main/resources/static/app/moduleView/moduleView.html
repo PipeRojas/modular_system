@@ -20,7 +20,7 @@
 </style>
 </head>
 <br>
-<div>
+<div ng-show="authenticated">
     <center>
         <h1>
             <b>
@@ -38,13 +38,18 @@
         </p>
         <br>
         <p>
-            {{actualModuleInitialDateLng}}{{selectedModule.initialDate  | date:'medium'}}
+            <b>{{actualModuleInitialDateLng}}</b>{{selectedModule.initialDate  | date:"dd/MMMM/yyyy"}}
         </p>
     </center>
 </div>
 <br>
-<div ng-show="!visibleStartDocuments&&!visibleDevelopmentDocuments&&!visibleSubmodules">
+<div ng-show="!visibleEndEdit&&!visibleDevelopmentEdit&&!visibleStartDocuments&&!visibleDevelopmentDocuments&&!visibleSubmodules&&authenticated">
     <center>
+        <strong>
+            <b>{{moduleFrequencyNoteLng}}
+            </b>
+        </strong>
+        <br>
         <table bgcolor="#F6E3CE" ng-model="selectedModule" ng-change="selectedModule">
             <tr>
                 <th>
@@ -63,7 +68,7 @@
                 <td><b>{{moduleMaintainsFrequencyLng}}</b>{{(selectedModule.start.frequency)?YesLng:NoLng}}</td>
             </tr>
             <tr>
-                <td><b>{{moduleEstimatedDateLng}}</b>{{selectedModule.start.estimateDate  | date:'medium'}}</td>
+                <td><b>{{moduleEstimatedDateLng}}</b>{{selectedModule.start.estimateDate  | date:"dd/MMMM/yyyy"}}</td>
             </tr>
             <tr>
                 <td>
@@ -108,6 +113,13 @@
                     </center>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <center>
+                        <button ng-click="showDevelopmentEdit()">{{editModuleDevelopmentLng}}</button>
+                    </center>
+                </td>
+            </tr>
         </table>
         <br>
         <table bgcolor="#CEF6CE" ng-model="selectedModule" ng-change="selectedModule">
@@ -125,7 +137,17 @@
                 <td><b>{{moduleEndSelectionLng}}</b>{{selectedModule.end.selection}}</td>
             </tr>
             <tr>
+                <td><b>{{moduleEndFinalDateLng}}</b>{{selectedModule.end.finalDate  | date:"dd/MMMM/yyyy"}}</td>
+            </tr>
+            <tr>
                 <td><b>{{moduleStartDevelopmentRemarksLng}}</b>{{selectedModule.end.startAndDevelopmentRemarks}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <center>
+                        <button ng-click="showEndEdit()">{{editModuleEndLng}}</button>
+                    </center>
+                </td>
             </tr>
         </table>
         <br>
@@ -142,7 +164,7 @@
     </center>
 </div>
 <br>
-<div ng-show="visibleStartDocuments">
+<div ng-show="visibleStartDocuments&&authenticated">
     <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
         <tbody>
         <tr>
@@ -156,7 +178,7 @@
     <button ng-click="showStartDocuments()">{{backLng}}</button>
 </div>
 <br>
-<div ng-show="visibleDevelopmentDocuments">
+<div ng-show="visibleDevelopmentDocuments&&authenticated">
     <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
         <tbody>
         <tr>
@@ -170,7 +192,7 @@
     <button ng-click="showDevelopmentDocuments()">{{backLng}}</button>
 </div>
 <br>
-<div ng-show="visibleSubmodules">
+<div ng-show="visibleSubmodules&&authenticated">
     <center>
         <h1>
             <b>{{moduleSubmodulesLng}} {{selectOneForDetailsLng}}</b>
@@ -190,5 +212,85 @@
     </table>
     <button ng-show="SubModuleIsSelected" ng-click="goToSubmodule()">{{goToModuleBtnLng}}</button>
     <button ng-click="showSubmodules()">{{backLng}}</button>
+    <button ng-show="!visibleSubmoduleForm" ng-click="showSubModuleForm()">{{createSubModuleLng}}</button>
+    <form ng-show="visibleSubmoduleForm">
+        <label for="newSubModuleName"><b>{{createSubModuleNameLng}}</b></label>
+        <input ng-model="newSubModuleName" id="newSubModuleName" type="text">
+        </input>
+        <br>
+        <label for="subModuleEstimatedDate"><b>{{createSubModuleEstimatedDateLng}}</b></label>
+        <input ng-model="newSubModuleDate" id="subModuleEstimatedDate" type="date">
+        <br>
+        <button ng-click="registerNewSubModule()">{{registerNewSubModuleLng}}</button>
+    </form>
 </div>
 <br>
+<form ng-show="visibleDevelopmentEdit&&authenticated">
+    <br>
+    <h1>
+        <b>{{editModuleDevelopmentLng}}</b>
+    </h1>
+    <center>
+        <br>
+        <label for="moduleDevelopmentText"><b>{{moduleDevelopmentTextLng}}</b></label>
+        <br>
+        <textarea ng-model="tempDevelopmentText" id="moduleDevelopmentText" rows="4" cols="50">
+        </textarea>
+        <br>
+        <div class="mui-select">
+            <label for="repeatSelect0">
+                <b>{{moduleDevelopmentSelectionLng}}
+                </b>
+            </label>
+            <select id="repeatSelect0" ng-model="tempDevelopmentSelection">
+                <option ng-repeat="option in moduleDevelopmentSelectionOpt.availableOptions" value="{{option.name}}">{{option.name}}</option>
+            </select>
+        </div>
+        <br>
+    </center>
+    <button ng-click="saveNewDevelopmentData()">{{saveChangesLng}}</button>
+    <button ng-click="showDevelopmentEdit()">{{backLng}}</button>
+</form>
+<br>
+<form ng-show="visibleEndEdit&&authenticated">
+    <br>
+    <h1>
+        <b>{{editModuleEndLng}}</b>
+    </h1>
+    <center>
+        <br>
+        <label for="moduleEndText"><b>{{moduleEndTextLng}}</b></label>
+        <br>
+        <textarea ng-model="tempEndText" id="moduleEndText" rows="4" cols="50">
+        </textarea>
+        <br>
+        <div class="mui-select">
+            <label for="repeatSelect1">
+                <b>{{moduleEndSelectionLng}}
+                </b>
+            </label>
+            <select id="repeatSelect1" ng-model="tempEndSelection">
+                <option ng-repeat="option in moduleEndSelectionOpt.availableOptions" value="{{option.name}}">{{option.name}}</option>
+            </select>
+        </div>
+        <br>
+        <label for="moduleFinalDate"><b>{{moduleEndFinalDateLng}}</b></label>
+        <input ng-model="tempEndFinalDate" id="moduleFinalDate" type="date">
+        <br>
+        <label for="moduleStaDevRemarks"><b>{{moduleStartDevelopmentRemarksLng}}</b></label>
+        <br>
+        <textarea ng-model="tempEndStaDevRemarks" id="moduleStaDevRemarks" rows="4" cols="50">
+        </textarea>
+        <br>
+        <label for="repeatSelect2">
+            <b>{{moduleIsIterableLng}}
+            </b>
+        </label>
+        <select id="repeatSelect2" ng-model="tempIteration">
+            <option ng-repeat="option in endBooleanOpt.availableOptions" value="{{option.id}}">{{option.name}}</option>
+        </select>
+        <br>
+    </center>
+    <button ng-click="saveNewEndData()">{{saveChangesLng}}</button>
+    <button ng-click="showEndEdit()">{{backLng}}</button>
+</form>
