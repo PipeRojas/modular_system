@@ -75,6 +75,7 @@ public class ModulesController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> postModule(@RequestBody Module m) {
         try {
+            System.out.println("Fecha: "+m.getInitialDate().toString());
             mm.addModule(m);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (ModuleException ex) {

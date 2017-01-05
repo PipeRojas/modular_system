@@ -29,7 +29,6 @@ angular.module('myApp.createModule', ['ngRoute'])
         $scope.validData=$scope.validData&&$scope.moduleStartSelection!='';
         $scope.validData=$scope.validData&&$scope.moduleMaintainsFrequency!='';
         $scope.validData=$scope.validData&&$scope.moduleEstimatedDate!=null;
-
         if($scope.validData){
             userByName.get({userName:$scope.moduleOwnerName})
             .$promise.then(
@@ -58,8 +57,7 @@ angular.module('myApp.createModule', ['ngRoute'])
                         "start":$scope.newModuleStart,
                         "initialDate":$scope.moduleInitialDate,
                         "development":$scope.newModuleDevelopment,
-                        "end":$scope.newModuleEnd,
-                        "initialDate":''
+                        "end":$scope.newModuleEnd
                     };
                     modules.save($scope.newModule,function(){})
                     .$promise.then(
