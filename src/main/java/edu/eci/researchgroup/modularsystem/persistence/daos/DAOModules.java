@@ -7,7 +7,9 @@ package edu.eci.researchgroup.modularsystem.persistence.daos;
 
 import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
+import edu.eci.researchgroup.modularsystem.model.UserException;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,7 +22,7 @@ public interface DAOModules {
      *
      * @return all the registered modules
      */
-    public List<Module> loadAll();
+    public Map<String,Module> loadAll();
 
     /**
      * Load the module with the given name
@@ -37,7 +39,7 @@ public interface DAOModules {
      * @return all the main modules, all which aren't submodules of other
      * modules
      */
-    public List<Module> loadMain();
+    public Map<String,Module> loadMain();
 
     /**
      * Loads all the modules which have registered with the given user as its
@@ -46,9 +48,9 @@ public interface DAOModules {
      * @param userName the name of the owner of the modules
      * @return all the modules which have registered with the given user as its
      * owner
-     * @throws ModuleException if the userName is null
+     * @throws UserException if the userName is null
      */
-    public List<Module> loadByUser(String userName) throws ModuleException;
+    public Map<String,Module> loadByUser(String userName) throws UserException;
 
     /**
      * Loads all the main modules which have registered with the given user as
@@ -57,9 +59,9 @@ public interface DAOModules {
      * @param userName the name of the owner of the modules
      * @return all the main modules which have registered with the given user as
      * its owner
-     * @throws ModuleException if the userName is null
+     * @throws UserException if the userName is null
      */
-    public List<Module> loadMainByUser(String userName) throws ModuleException;
+    public Map<String,Module> loadMainByUser(String userName) throws UserException;
 
     /**
      * Registers the given module

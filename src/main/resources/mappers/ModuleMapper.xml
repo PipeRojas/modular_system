@@ -6,15 +6,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<resultMap type='Module' id='ModuleResult'>
 		<id property='name' column='name'/>
-		<association property='owner' resultMap='UserResult' columnPrefix='own_'/>
 		<result property='iteration' column='iteration'/>
 		<result property='initialDate' column='startDate'/>
-		<collection property='remarks' ofType='java.lang.String' javaType='list'>
-			<result column='remark'/>
-		</collection>
+		<association property='owner' resultMap='UserResult' columnPrefix='own_'/>
 		<association property='start' resultMap='StartResult' columnPrefix='str_'/>
 		<association property='development' resultMap='DevelopmentResult' columnPrefix='dev_'/>
 		<association property='end' resultMap='EndResult' columnPrefix='end_'/>
+		<collection property='remarks' ofType='java.lang.String' javaType='list'>
+			<result column='remark'/>
+		</collection>
 	</resultMap>
 
 	<resultMap type='User' id='UserResult'>
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</collection>
     </resultMap>
 
-    <resultMap type='Start' id='StartResult'>
+    <resultMap type='End' id='EndResult'>
     	<result property='text' column='texte'/>
     	<result property='selection' column='selectione'/>
     	<result property='finalDate' column='finalDate'/>
