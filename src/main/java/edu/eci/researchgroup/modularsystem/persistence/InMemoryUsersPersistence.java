@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Julian David Devia Serna
  */
-@Service
+//@Service
 public class InMemoryUsersPersistence implements UsersPersistence {
     
     private HashMap<String,User> users;

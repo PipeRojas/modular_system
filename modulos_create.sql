@@ -1,42 +1,44 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-01-04 05:39:10.319
+-- Last modification date: 2017-01-05 02:41:34.906
 
 -- tables
--- Table: Documents
-CREATE TABLE Documents (
-    name varchar(100)  NOT NULL,
-    uri varchar(100)  NOT NULL,
-    CONSTRAINT Documents_pk PRIMARY KEY (name)
-);
-
 -- Table: Modules
 CREATE TABLE Modules (
     name varchar(100)  NOT NULL,
     owner varchar(100)  NOT NULL,
     startDate timestamp  NOT NULL,
-    text1 varchar(100)  NOT NULL,
-    selection1 varchar(100)  NOT NULL,
+    textS varchar(100)  NOT NULL,
+    selectionS varchar(100)  NOT NULL,
     estimatedDate timestamp  NOT NULL,
-    text2 varchar(100)  NOT NULL,
-    selection2 varchar(100)  NOT NULL,
+    textD varchar(100)  NOT NULL,
+    selectionD varchar(100)  NOT NULL,
+    iteration boolean  NOT NULL,
     finalDate timestamp  NULL,
-    iteration boolean  NULL,
-    observations varchar(100)  NULL,
+    textE varchar(100)  NULL,
+    selectionE varchar(100)  NULL,
+    finalRemarks varchar(100)  NULL,
     CONSTRAINT Modules_pk PRIMARY KEY (name)
 );
 
 -- Table: Modules_Dev_Doc
 CREATE TABLE Modules_Dev_Doc (
-    Documents_name varchar(100)  NOT NULL,
     Modules_name varchar(100)  NOT NULL,
-    CONSTRAINT Modules_Dev_Doc_pk PRIMARY KEY (Documents_name,Modules_name)
+    uri varchar(100)  NOT NULL,
+    CONSTRAINT Modules_Dev_Doc_pk PRIMARY KEY (Modules_name,uri)
+);
+
+-- Table: Modules_Remarks
+CREATE TABLE Modules_Remarks (
+    Modules_name varchar(100)  NOT NULL,
+    remark varchar(100)  NOT NULL,
+    CONSTRAINT Modules_Remarks_pk PRIMARY KEY (Modules_name,remark)
 );
 
 -- Table: Modules_Start_Doc
 CREATE TABLE Modules_Start_Doc (
-    Documents_name varchar(100)  NOT NULL,
     Modules_name varchar(100)  NOT NULL,
-    CONSTRAINT Modules_Start_Doc_pk PRIMARY KEY (Documents_name,Modules_name)
+    uri varchar(100)  NOT NULL,
+    CONSTRAINT Modules_Start_Doc_pk PRIMARY KEY (Modules_name,uri)
 );
 
 -- Table: Modules_Submodules
@@ -55,14 +57,6 @@ CREATE TABLE Users (
 );
 
 -- foreign keys
--- Reference: Modules_Dev_Doc_Documents (table: Modules_Dev_Doc)
-ALTER TABLE Modules_Dev_Doc ADD CONSTRAINT Modules_Dev_Doc_Documents
-    FOREIGN KEY (Documents_name)
-    REFERENCES Documents (name)  
-    NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
-;
-
 -- Reference: Modules_Dev_Doc_Modules (table: Modules_Dev_Doc)
 ALTER TABLE Modules_Dev_Doc ADD CONSTRAINT Modules_Dev_Doc_Modules
     FOREIGN KEY (Modules_name)
@@ -71,16 +65,16 @@ ALTER TABLE Modules_Dev_Doc ADD CONSTRAINT Modules_Dev_Doc_Modules
     INITIALLY IMMEDIATE
 ;
 
--- Reference: Modules_Doc_Documents (table: Modules_Start_Doc)
-ALTER TABLE Modules_Start_Doc ADD CONSTRAINT Modules_Doc_Documents
-    FOREIGN KEY (Documents_name)
-    REFERENCES Documents (name)  
+-- Reference: Modules_Doc_Modules (table: Modules_Start_Doc)
+ALTER TABLE Modules_Start_Doc ADD CONSTRAINT Modules_Doc_Modules
+    FOREIGN KEY (Modules_name)
+    REFERENCES Modules (name)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: Modules_Doc_Modules (table: Modules_Start_Doc)
-ALTER TABLE Modules_Start_Doc ADD CONSTRAINT Modules_Doc_Modules
+-- Reference: Modules_Remarks_Modules (table: Modules_Remarks)
+ALTER TABLE Modules_Remarks ADD CONSTRAINT Modules_Remarks_Modules
     FOREIGN KEY (Modules_name)
     REFERENCES Modules (name)  
     NOT DEFERRABLE 

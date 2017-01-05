@@ -17,8 +17,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <environment id="development">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
-                <property name="driver" value="corg.postgres.jdbc.Driver" />
-                <property name="url" value="jdbc:postgres://mzmyntsmpdxzgg:0c3453217f36d2cb4e7fd1e7580db41305115432318183e538b4eb0a2d34ccc9@ec2-54-225-104-61.compute-1.amazonaws.com:5432/dp7bium67ib3s" />
+                <property name="driver" value="org.postgresql.Driver" />
+                <property name="url" value="jdbc:postgresql://ec2-54-225-104-61.compute-1.amazonaws.com:5432/dp7bium67ib3s?sslmode=require" />
                 <property name="username" value="mzmyntsmpdxzgg" />
                 <property name="password" value="0c3453217f36d2cb4e7fd1e7580db41305115432318183e538b4eb0a2d34ccc9" />
             </dataSource>

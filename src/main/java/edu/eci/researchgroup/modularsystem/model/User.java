@@ -40,25 +40,25 @@ public class User {
     }
 
     /**
-     * @return the Selection
+     * @return the selection
      */
     public String getSelection() {
-        return Selection;
+        return selection;
     }
 
     /**
-     * @param Selection the Selection to set
+     * @param Selection the selection to set
      */
     public void setSelection(String Selection) {
-        this.Selection = Selection;
+        this.selection = Selection;
     }
     private String name;
     private String text;
-    private String Selection;
-    
+    private String selection;
+
     @Override
-    public boolean equals(Object o){
-        User other=(User) o;
+    public boolean equals(Object o) {
+        User other = (User) o;
         return this.getName().equals(other.getName()) && this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection());
     }
 }
