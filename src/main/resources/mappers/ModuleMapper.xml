@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="edu.eci.researchgroup.modularsystem.persistence.daos.mybatis.mappers.ModulesMapper">
+<mapper namespace="edu.eci.researchgroup.modularsystem.persistence.daos.mybatis.mappers.ModuleMapper">
 
 	<resultMap type='Module' id='ModuleResult'>
 		<id property='name' column='name'/>
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type='Start' id='StartResult'>
     	<result property='text' column='texts'/>
     	<result property='selection' column='selections'/>
-    	<result property='frecuency' column='frecuency'/>
+    	<result property='frequency' column='frequency'/>
     	<result property='estimateDate' column='estimatedDate'/>
        	<collection property='documents' ofType='java.lang.String' javaType='list'>
 			<result column='documents'/>
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		rem.remark as remark,
     		mo.textS as str_texts,
     		mo.selectionS as str_selections,
-    		mo.frecuency as str_frecuency,
+    		mo.frecuency as str_frequency,
     		mo.estimatedDate as str_estimatedDate,
     		start.uri as str_documents,
     		mo.textD as dev_textd,
@@ -89,7 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		rem.remark as remark,
     		mo.textS as str_texts,
     		mo.selectionS as str_selections,
-    		mo.frecuency as str_frecuency,
+    		mo.frecuency as str_frequency,
     		mo.estimatedDate as str_estimatedDate,
     		start.uri as str_documents,
     		mo.textD as dev_textd,
@@ -122,7 +122,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		rem.remark as remark,
     		mo.textS as str_texts,
     		mo.selectionS as str_selections,
-    		mo.frecuency as str_frecuency,
+    		mo.frecuency as str_frequency,
     		mo.estimatedDate as str_estimatedDate,
     		start.uri as str_documents,
     		mo.textD as dev_textd,
@@ -152,7 +152,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		rem.remark as remark,
     		mo.textS as str_texts,
     		mo.selectionS as str_selections,
-    		mo.frecuency as str_frecuency,
+    		mo.frecuency as str_frequency,
     		mo.estimatedDate as str_estimatedDate,
     		start.uri as str_documents,
     		mo.textD as dev_textd,
@@ -189,7 +189,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		rem.remark as remark,
     		mo.textS as str_texts,
     		mo.selectionS as str_selections,
-    		mo.frecuency as str_frecuency,
+    		mo.frecuency as str_frequency,
     		mo.estimatedDate as str_estimatedDate,
     		start.uri as str_documents,
     		mo.textD as dev_textd,
@@ -221,7 +221,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		rem.remark as remark,
     		mo.textS as str_texts,
     		mo.selectionS as str_selections,
-    		mo.frecuency as str_frecuency,
+    		mo.frecuency as str_frequency,
     		mo.estimatedDate as str_estimatedDate,
     		start.uri as str_documents,
     		mo.textD as dev_textd,
@@ -253,7 +253,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		Modules 
     		(name,owner,startDate,textS,selectionS,frecuency,estimatedDate,textD,selectionD,iteration,finalDate,textE,selectionE,finalRemarks) 
 		VALUES 
-			(#{module.name},#{module.owner.name},#{module.initialDate},#{module.start.text},#{module.start.selection},#{module.start.frecuency},#{module.start.estimateDate},#{module.development.text},#{module.development.selection},#{module.iteration},#{module.end.finalDate},#{module.end.text},#{module.end.selection},#{module.end.startAndDevelopmentRemarks});
+			(#{module.name},#{module.owner.name},#{module.initialDate},#{module.start.text},#{module.start.selection},#{module.start.frequency},#{module.start.estimateDate},#{module.development.text},#{module.development.selection},#{module.iteration},#{module.end.finalDate},#{module.end.text},#{module.end.selection},#{module.end.startAndDevelopmentRemarks});
     </insert>
 
 	<insert id='insertSubModule' parameterType='map'>
@@ -297,7 +297,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		iteration = #{mod.iteration}
     		textS = #{mod.start.text},
     		selectionS = #{mod.start.selection},
-    		frecuency = #{mod.start.frecuency},
+    		frecuency = #{mod.start.frequency},
     		estimatedDate = #{mod.start.estimateDate},
     		textD = #{mod.development.text},
     		selectionD = #{mod.development.selection},

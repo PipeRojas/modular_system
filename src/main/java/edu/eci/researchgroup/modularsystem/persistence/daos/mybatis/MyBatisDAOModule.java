@@ -42,7 +42,7 @@ public class MyBatisDAOModule implements DAOModules {
         stack.addLast(mod);
         while (!stack.isEmpty()) {
             Module current = stack.pollFirst();
-            List<Module> subMod = mmap.loadSubMod(mod.getName());
+            List<Module> subMod = mmap.loadSubMod(current.getName());
             current.getDevelopment().setSubModules(subMod);
             for (Module module : subMod) {
                 stack.addLast(module);

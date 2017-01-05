@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-01-05 09:30:57.992
+-- Last modification date: 2017-01-05 21:44:23.937
 
 -- tables
 -- Table: Modules
@@ -7,13 +7,13 @@ CREATE TABLE Modules (
     name varchar(100)  NOT NULL,
     owner varchar(100)  NOT NULL,
     startDate timestamp  NOT NULL,
-    textS varchar(100)  NOT NULL,
-    selectionS varchar(100)  NOT NULL,
-    frecuency boolean  NOT NULL,
-    estimatedDate timestamp  NOT NULL,
-    textD varchar(100)  NOT NULL,
-    selectionD varchar(100)  NOT NULL,
-    iteration boolean  NOT NULL,
+    textS varchar(100)  NULL,
+    selectionS varchar(100)  NULL,
+    frecuency boolean  NULL,
+    estimatedDate timestamp  NULL,
+    textD varchar(100)  NULL,
+    selectionD varchar(100)  NULL,
+    iteration boolean  NULL,
     finalDate timestamp  NULL,
     textE varchar(100)  NULL,
     selectionE varchar(100)  NULL,

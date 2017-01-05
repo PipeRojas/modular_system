@@ -16,11 +16,13 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Julian David Devia Serna
  */
+@Service
 public class MyBatisModulesPersistence implements ModulesPersistence {
 
     private DAOFactory daoF;

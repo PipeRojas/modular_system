@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
  *
  * @author Julian David Devia Serna
  */
-@Service
+//@Service
 public class InMemoryModulesPersistence implements ModulesPersistence {
 
     private HashMap<String, Module> modulos;
