@@ -8,13 +8,34 @@ package edu.eci.researchgroup.modularsystem.persistence;
 import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
 import edu.eci.researchgroup.modularsystem.model.UserException;
+import edu.eci.researchgroup.modularsystem.persistence.daos.DAOFactory;
+import edu.eci.researchgroup.modularsystem.persistence.daos.DAOModules;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Julian David Devia Serna
  */
 public class MyBatisModulesPersistence implements ModulesPersistence{
+    
+    private DAOFactory daoF;
+    private DAOModules daoM;
+
+    public MyBatisModulesPersistence() {
+        try {
+            InputStream input = getClass().getClassLoader().getResource("applicationconfig.properties").openStream();
+            Properties properties = new Properties();
+            properties.load(input);
+            daoF = DAOFactory.getInstance(properties);
+        } catch (IOException ex) {
+            Logger.getLogger(MyBatisUsersPersistence.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     public boolean checkModule(String name) {
