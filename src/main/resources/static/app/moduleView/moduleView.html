@@ -212,6 +212,17 @@
     </table>
     <button ng-show="SubModuleIsSelected" ng-click="goToSubmodule()">{{goToModuleBtnLng}}</button>
     <button ng-click="showSubmodules()">{{backLng}}</button>
+    <button ng-show="!visibleSubmoduleForm" ng-click="showSubModuleForm()">{{createSubModuleLng}}</button>
+    <form ng-show="visibleSubmoduleForm">
+        <label for="newSubModuleName"><b>{{createSubModuleNameLng}}</b></label>
+        <input ng-model="newSubModuleName" id="newSubModuleName" type="text">
+        </input>
+        <br>
+        <label for="subModuleEstimatedDate"><b>{{createSubModuleEstimatedDateLng}}</b></label>
+        <input ng-model="newSubModuleDate" id="subModuleEstimatedDate" type="date">
+        <br>
+        <button ng-click="registerNewSubModule()">{{registerNewSubModuleLng}}</button>
+    </form>
 </div>
 <br>
 <form ng-show="visibleDevelopmentEdit&&authenticated">

@@ -96,7 +96,14 @@ public class Development {
     }
     
     public boolean hasSubModule(Module subModule){
-        return subModules.contains(subModule);
+        Boolean found=false;
+        for (Module m:subModules) {
+            if(m.getName().equals(subModule.getName())){
+                found=true;
+                break;
+            }
+        }
+        return found;
     }
     
     @Override

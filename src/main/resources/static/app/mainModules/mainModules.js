@@ -14,7 +14,6 @@ angular.module('myApp.mainModules', ['ngRoute'])
     .$promise.then(
         //success
         function( value ){
-            console.info(value);
             $scope.moduleIsSelected=false;
             $scope.mainModulesList=value;
             $rootScope.selectedModule;

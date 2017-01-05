@@ -74,4 +74,8 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.moduleEndSelectionOpt2Lng="End Selection Option 2";
     $rootScope.moduleEndSelectionOpt3Lng="End Selection Option 3";
     $rootScope.moduleEndSelectionOpt4Lng="End Selection Option 4";
+    $rootScope.createSubModuleLng="Add New SubModule";
+    $rootScope.createSubModuleNameLng="SubModule Name: ";
+    $rootScope.createSubModuleEstimatedDateLng="SubModule Estimated Date: ";
+    $rootScope.registerNewSubModuleLng="Register SubModule";
  }]);

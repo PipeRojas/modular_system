@@ -13,4 +13,7 @@ angular.module('services.factory', ['ngRoute', 'ngResource'])
 })
 .factory('modules', function($resource){
       return $resource('/modules',{},{get: { method: 'GET'}});
+})
+.factory('subModule', function($resource){
+      return $resource('/modules/subModule/:moduleName',{id:"@_moduleName"},{update: { method: 'PUT'}});
 });

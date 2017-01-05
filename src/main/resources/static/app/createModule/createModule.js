@@ -48,7 +48,9 @@ angular.module('myApp.createModule', ['ngRoute'])
                     };
                     $scope.newModuleEnd={
                         "text":'',
-                        "selection":''
+                        "selection":'',
+                        "startAndDevelopmentRemarks":'',
+                        "finalDate":''
                     };
                     $scope.newModule={
                         "name":$scope.moduleName,
@@ -56,7 +58,8 @@ angular.module('myApp.createModule', ['ngRoute'])
                         "start":$scope.newModuleStart,
                         "initialDate":$scope.moduleInitialDate,
                         "development":$scope.newModuleDevelopment,
-                        "end":$scope.newModuleEnd
+                        "end":$scope.newModuleEnd,
+                        "initialDate":''
                     };
                     modules.save($scope.newModule,function(){})
                     .$promise.then(

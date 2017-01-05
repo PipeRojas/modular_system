@@ -9,13 +9,14 @@ angular.module('myApp.moduleView', ['ngRoute'])
   });
 }])
 
-.controller('moduleViewCtrl', ['moduleByName', '$scope', '$rootScope', '$location', '$window', function(moduleByName, $scope, $rootScope, $location, $window) {
+.controller('moduleViewCtrl', ['modules', 'subModule', 'moduleByName', '$scope', '$rootScope', '$location', '$window', function(modules, subModule, moduleByName, $scope, $rootScope, $location, $window) {
     $scope.visibleStartDocuments=false;
     $scope.visibleDevelopmentDocuments=false;
     $scope.visibleSubmodules=false;
     $scope.visibleDevelopmentEdit=false;
     $scope.visibleEndEdit=false;
     $scope.SubModuleIsSelected=false;
+    $scope.visibleSubmoduleForm=false;
     $scope.tempDevelopmentText='';
     $scope.tempDevelopmentSelection='';
     $scope.tempEndText='';
@@ -23,6 +24,85 @@ angular.module('myApp.moduleView', ['ngRoute'])
     $scope.tempEndFinalDate='';
     $scope.tempEndStaDevRemarks='';
     $scope.tempIteration='';
+    $scope.newSubModuleName='';
+    $scope.newSubModuleDate='';
+    
+    $scope.showSubModuleForm=function(){
+        $scope.visibleSubmoduleForm=!$scope.visibleSubmoduleForm;
+    };
+    
+    $scope.registerNewSubModule=function(){
+        $scope.validSubModuleData=true;
+        $scope.validSubModuleData=$scope.validSubModuleData&&$scope.newSubModuleName!='';
+        $scope.validSubModuleData=$scope.validSubModuleData&&$scope.newSubModuleDate!=null;
+
+        if($scope.validSubModuleData){
+            $scope.newSubModuleStart={
+                "text":$rootScope.selectedModule.start.text,
+                "selection":$rootScope.selectedModule.start.selection,
+                "frequency":$rootScope.selectedModule.start.frequency,
+                "documents":$rootScope.selectedModule.start.documents,
+                "estimateDate":$scope.newSubModuleDate
+            };
+            $scope.newSubModuleDevelopment={
+                "text":'',
+                "selection":'',
+                "subModules":[],
+                "documents":[]
+            };
+            $scope.newSubModuleEnd={
+                "text":'',
+                "selection":'',
+                "startAndDevelopmentRemarks":'',
+                "finalDate":''
+            };
+            $scope.newSubModule={
+                "name":$scope.newSubModuleName,
+                "owner":$rootScope.selectedModule.owner,
+                "start":$scope.newSubModuleStart,
+                "initialDate":$rootScope.selectedModule.initialDate,
+                "development":$scope.newSubModuleDevelopment,
+                "end":$scope.newSubModuleEnd,
+                "iteration":''
+            };
+
+
+            subModule.update({moduleName:$rootScope.selectedModule.name}, $scope.newSubModule)
+            .$promise.then(
+                 //success
+                 function( value ){
+                      alert($rootScope.changesSavedLng);
+                      moduleByName.get({moduleName:$scope.newSubModule.name})
+                      .$promise.then(
+                            //success
+                            function( value ){
+                                moduleByName.get({moduleName:$rootScope.selectedModule.name})
+                                .$promise.then(
+                                    //success
+                                    function( value ){
+                                         $rootScope.selectedModule=value;
+                                         $scope.showSubModuleForm();
+                                    },
+                                    //error
+                                    function( error ){
+                                        alert($rootScope.errorSavingChangesLng);
+                                    }
+                                );
+                            },
+                            //error
+                            function( error ){
+                                alert($rootScope.errorSavingChangesLng);
+                            }
+                      );
+                 },
+                 //error
+                 function( error ){
+                      alert($rootScope.errorSavingChangesLng);
+                 }
+            );
+        }
+
+    };
 
     $scope.endBooleanOpt = {
         availableOptions: [
@@ -139,7 +219,6 @@ angular.module('myApp.moduleView', ['ngRoute'])
         .$promise.then(
            //success
            function( value ){
-               console.info(value);
                $scope.SubModuleIsSelected=false;
                $rootScope.selectedModule=value;
                $scope.showSubmodules();
