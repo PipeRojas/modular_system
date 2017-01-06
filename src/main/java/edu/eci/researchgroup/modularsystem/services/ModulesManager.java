@@ -33,6 +33,8 @@ public class ModulesManager {
     private ModulesPersistence persist;
 
     /**
+     * Returns the persistence component of the manager
+     *
      * @return the persist
      */
     public ModulesPersistence getPersist() {

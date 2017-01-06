@@ -12,6 +12,8 @@ package edu.eci.researchgroup.modularsystem.model;
 public class User {
 
     /**
+     * Returns the name of the user
+     *
      * @return the name
      */
     public String getName() {
@@ -19,6 +21,8 @@ public class User {
     }
 
     /**
+     * Sets the name od the user
+     *
      * @param name the name to set
      */
     public void setName(String name) {
@@ -26,6 +30,8 @@ public class User {
     }
 
     /**
+     * Returns the text of the user
+     *
      * @return the text
      */
     public String getText() {
@@ -33,6 +39,8 @@ public class User {
     }
 
     /**
+     * Sets the text of the user
+     *
      * @param text the text to set
      */
     public void setText(String text) {
@@ -40,6 +48,8 @@ public class User {
     }
 
     /**
+     * Returns the selection of the user
+     *
      * @return the selection
      */
     public String getSelection() {
@@ -47,6 +57,8 @@ public class User {
     }
 
     /**
+     * Sets the selection of the user
+     *
      * @param Selection the selection to set
      */
     public void setSelection(String Selection) {

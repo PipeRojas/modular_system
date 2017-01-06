@@ -42,7 +42,7 @@ public interface DAOUser {
     public void save(User user) throws UserException;
 
     /**
-     * updates an user given its old name and the new information
+     * Updates an user given its old name and the new information
      *
      * @param oldName the user's name before the changes
      * @param user the current information of the user

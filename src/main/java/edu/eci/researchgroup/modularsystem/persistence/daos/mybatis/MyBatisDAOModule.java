@@ -137,10 +137,52 @@ public class MyBatisDAOModule implements DAOModules {
         if (oldName == null || oldName.length() == 0) {
             throw new ModuleException("The user name must't be null");
         }
-        if (mmap.load(oldName) == null) {
+        Module old=load(oldName);
+        if (old == null) {
             throw new ModuleException("The module isn't registered yet");
         }
         mmap.updateModule(oldName, module);
+        for(String oldRemark : old.getRemarks()){
+            if(!module.getRemarks().contains(oldRemark)){
+                mmap.deleteRemark(oldName, oldRemark);
+            }
+        }
+        for(String newRemark : module.getRemarks()){
+            if(!old.getRemarks().contains(newRemark)){
+                addRemark(module.getName(), newRemark);
+            }
+        }
+        for(String oldUri : old.getStart().getDocuments()){
+            if(!module.getStart().getDocuments().contains(oldUri)){
+                mmap.deleteStartDoc(oldName, oldUri);
+            }
+        }
+        for(String newUri : module.getStart().getDocuments()){
+            if(!old.getStart().getDocuments().contains(newUri)){
+                addDocumentStart(oldName, newUri);
+            }
+        }
+        for(String oldUri : old.getDevelopment().getDocuments()){
+            if(!module.getDevelopment().getDocuments().contains(oldUri)){
+                mmap.deleteDevDoc(oldName, oldUri);
+            }
+        }
+        for(String newUri : module.getDevelopment().getDocuments()){
+            if(!old.getDevelopment().getDocuments().contains(newUri)){
+                addDocumentDev(oldName, newUri);
+            }
+        }
+        for(Module oldSubMod : old.getDevelopment().getSubModules()){
+            if(!module.getDevelopment().getSubModules().contains(oldSubMod)){
+                mmap.deleteSubMod(oldName, oldSubMod.getName());
+            }
+        }
+        for(Module newSubMod : module.getDevelopment().getSubModules()){
+            if(!module.getDevelopment().getSubModules().contains(newSubMod)){
+                addSubModule(newSubMod, oldName);
+            }
+        }
+        
     }
 
     @Override

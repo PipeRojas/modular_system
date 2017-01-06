@@ -294,7 +294,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	SET
     		owner = #{mod.owner.name},
     		startDate = #{mod.initialDate},
-    		iteration = #{mod.iteration}
+    		iteration = #{mod.iteration},
     		textS = #{mod.start.text},
     		selectionS = #{mod.start.selection},
     		frecuency = #{mod.start.frequency},
@@ -308,5 +308,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	WHERE
     		name=#{oldName};
     </update>
+
+    <delete id='deleteStartDoc' parameterType='map'>
+    	DELETE FROM
+    		Modules_Submodules
+    	WHERE
+    		Modules_name=#{name} AND uri=#{uri}
+    </delete>
+
+    <delete id='deleteDevDoc' parameterType='map'>
+    	DELETE FROM
+    		Modules_Dev_Doc
+    	WHERE
+    		Modules_name=#{name} AND uri=#{uri}
+    </delete>
+
+    <delete id='deleteSubMod' parameterType='map'>
+    	DELETE FROM
+    		Modules_Dev_Doc
+    	WHERE
+    		Modules_name=#{modName} AND Modules_submodule=#{subModName}
+    </delete>
+
+    <delete id='deleteRemark' parameterType='map'>
+    	DELETE FROM
+    		Modules_Remarks
+    	WHERE
+    		Modules_name=#{name} AND remark=#{remark}
+    </delete>
 
 </mapper>

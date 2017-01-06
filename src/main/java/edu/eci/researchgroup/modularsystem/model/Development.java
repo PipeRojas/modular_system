@@ -20,6 +20,8 @@ public class Development {
     }
 
     /**
+     * Returns the text of the development
+     *
      * @return the text
      */
     public String getText() {
@@ -27,6 +29,8 @@ public class Development {
     }
 
     /**
+     * Sets the text of the development
+     *
      * @param text the text to set
      */
     public void setText(String text) {
@@ -34,6 +38,8 @@ public class Development {
     }
 
     /**
+     * Returns the selection of the development
+     *
      * @return the selection
      */
     public String getSelection() {
@@ -41,6 +47,8 @@ public class Development {
     }
 
     /**
+     * Sets the selection of the development
+     *
      * @param selection the selection to set
      */
     public void setSelection(String selection) {
@@ -48,6 +56,8 @@ public class Development {
     }
 
     /**
+     * Returns the documents of the development
+     *
      * @return the documents
      */
     public List<String> getDocuments() {
@@ -55,6 +65,8 @@ public class Development {
     }
 
     /**
+     * Sets the documents to the development
+     *
      * @param documents the documents to set
      */
     public void setDocuments(List<String> documents) {
@@ -62,6 +74,8 @@ public class Development {
     }
 
     /**
+     * Returns the submodules of the development
+     *
      * @return the subModules
      */
     public List<Module> getSubModules() {
@@ -69,6 +83,8 @@ public class Development {
     }
 
     /**
+     * Sets the development of the development
+     *
      * @param subModules the subModules to set
      */
     public void setSubModules(List<Module> subModules) {
@@ -78,43 +94,45 @@ public class Development {
     private String selection;
     private List<String> documents;
     private List<Module> subModules;
-    
+
     /**
      * adds a new sub-module
+     *
      * @param newMod the module to add
      */
-    public void addSubModule(Module newMod){
+    public void addSubModule(Module newMod) {
         subModules.add(newMod);
     }
-    
+
     /**
      * adds a new document's uri
+     *
      * @param uri the document's uri to add
      */
-    public void addDocument(String uri){
+    public void addDocument(String uri) {
         documents.add(uri);
     }
-    
-    public boolean hasSubModule(Module subModule){
-        Boolean found=false;
-        for (Module m:subModules) {
-            if(m.getName().equals(subModule.getName())){
-                found=true;
+
+    public boolean hasSubModule(Module subModule) {
+        Boolean found = false;
+        for (Module m : subModules) {
+            if (m.getName().equals(subModule.getName())) {
+                found = true;
                 break;
             }
         }
         return found;
     }
-    
+
     @Override
-    public boolean equals(Object o){
-        Development other=(Development) o;
-        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection()) &&
-                this.getDocuments().equals(other.getDocuments()) && this.getSubModules().equals(other.getSubModules());
+    public boolean equals(Object o) {
+        Development other = (Development) o;
+        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection())
+                && this.getDocuments().equals(other.getDocuments()) && this.getSubModules().equals(other.getSubModules());
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return subModules.toString();
     }
 }

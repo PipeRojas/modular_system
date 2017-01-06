@@ -101,12 +101,44 @@ public interface ModuleMapper {
     public void insertRemark(@Param("name") String name, @Param("remark") String remark);
 
     /**
-     * updates a module given its name before the changes and the new
+     * Updates a module given its name before the changes and the new
      * information
      *
      * @param oldName the name of the module before the changes
      * @param mod the module with all the new information
      */
     public void updateModule(@Param("oldName") String oldName, @Param("mod") Module mod);
+
+    /**
+     * Deletes a document from the start phase of a module
+     *
+     * @param name the name of the module
+     * @param uri the uri of the document to remove
+     */
+    public void deleteStartDoc(@Param("name") String name, @Param("uri") String uri);
+
+    /**
+     * Deletes a document from the development phase of a module
+     *
+     * @param name the name of the module
+     * @param uri the uri of the document to remove
+     */
+    public void deleteDevDoc(@Param("name") String name, @Param("uri") String uri);
+
+    /**
+     * Deletes a submodule from the development phase of a module
+     *
+     * @param modName the name of the module
+     * @param subModName the name of the submodule
+     */
+    public void deleteSubMod(@Param("modName") String modName, @Param("subModName") String subModName);
+
+    /**
+     * Deletes a remark of a module
+     *
+     * @param name the name of the module
+     * @param remark the remark
+     */
+    public void deleteRemark(@Param("name") String name, @Param("remark") String remark);
 
 }

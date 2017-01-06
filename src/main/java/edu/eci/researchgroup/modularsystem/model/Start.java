@@ -20,6 +20,8 @@ public class Start {
     }
 
     /**
+     * Returns the text of the start
+     *
      * @return the text
      */
     public String getText() {
@@ -27,6 +29,8 @@ public class Start {
     }
 
     /**
+     * Sets the text of the start
+     *
      * @param text the text to set
      */
     public void setText(String text) {
@@ -34,6 +38,8 @@ public class Start {
     }
 
     /**
+     * Returns the selection of the start
+     *
      * @return the selection
      */
     public String getSelection() {
@@ -41,6 +47,8 @@ public class Start {
     }
 
     /**
+     * Sets the selection of the start
+     *
      * @param selection the selection to set
      */
     public void setSelection(String selection) {
@@ -48,6 +56,8 @@ public class Start {
     }
 
     /**
+     * Returns the frequency of the start
+     *
      * @return the frequency
      */
     public boolean isFrequency() {
@@ -55,6 +65,8 @@ public class Start {
     }
 
     /**
+     * Sets the frequency of the start
+     *
      * @param frequency the frequency to set
      */
     public void setFrequency(boolean frequency) {
@@ -62,6 +74,8 @@ public class Start {
     }
 
     /**
+     * Returns the estimateDate of the start
+     *
      * @return the estimateDate
      */
     public Date getEstimateDate() {
@@ -69,6 +83,8 @@ public class Start {
     }
 
     /**
+     * Sets the estimateDate of the start
+     *
      * @param estimateDate the estimateDate to set
      */
     public void setEstimateDate(Date estimateDate) {
@@ -76,6 +92,8 @@ public class Start {
     }
 
     /**
+     * Returns the documents of the start
+     *
      * @return the documents
      */
     public List<String> getDocuments() {
@@ -83,6 +101,8 @@ public class Start {
     }
 
     /**
+     * Sets the documents of the start
+     *
      * @param documents the documents to set
      */
     public void setDocuments(List<String> documents) {
@@ -94,20 +114,21 @@ public class Start {
     private boolean frequency;
     private Date estimateDate;
     private List<String> documents;
-    
+
     /**
      * adds a new document's uri
+     *
      * @param uri the document's uri to add
      */
-    public void addDocument(String uri){
+    public void addDocument(String uri) {
         documents.add(uri);
     }
-    
+
     @Override
-    public boolean equals(Object o){
-        Start other=(Start) o;
-        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection()) &&
-                this.isFrequency()==other.isFrequency() && this.getEstimateDate().equals(other.getEstimateDate()) &&
-                this.getDocuments().equals(other.getDocuments());
+    public boolean equals(Object o) {
+        Start other = (Start) o;
+        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection())
+                && this.isFrequency() == other.isFrequency() && this.getEstimateDate().equals(other.getEstimateDate())
+                && this.getDocuments().equals(other.getDocuments());
     }
 }

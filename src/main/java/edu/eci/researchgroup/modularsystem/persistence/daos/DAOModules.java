@@ -8,7 +8,6 @@ package edu.eci.researchgroup.modularsystem.persistence.daos;
 import edu.eci.researchgroup.modularsystem.model.Module;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
 import edu.eci.researchgroup.modularsystem.model.UserException;
-import java.util.List;
 import java.util.Map;
 
 /**

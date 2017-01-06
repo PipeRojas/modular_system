@@ -14,6 +14,8 @@ import java.util.Date;
 public class End {
 
     /**
+     * Returns the finalDate of the end
+     *
      * @return the finalDate
      */
     public Date getFinalDate() {
@@ -21,6 +23,8 @@ public class End {
     }
 
     /**
+     * Sets the finalDate of the end
+     *
      * @param finalDate the finalDate to set
      */
     public void setFinalDate(Date finalDate) {
@@ -28,6 +32,8 @@ public class End {
     }
 
     /**
+     * Returns the text of the end
+     *
      * @return the text
      */
     public String getText() {
@@ -35,6 +41,8 @@ public class End {
     }
 
     /**
+     * Sets the text of the end
+     *
      * @param text the text to set
      */
     public void setText(String text) {
@@ -42,6 +50,8 @@ public class End {
     }
 
     /**
+     * Returns the selection of the end
+     *
      * @return the selection
      */
     public String getSelection() {
@@ -49,6 +59,8 @@ public class End {
     }
 
     /**
+     * Sets the selection of the end
+     *
      * @param selection the selection to set
      */
     public void setSelection(String selection) {
@@ -56,6 +68,8 @@ public class End {
     }
 
     /**
+     * Returns the startAndDevelopmentRemarks of the end
+     *
      * @return the startAndDevelopmentRemarks
      */
     public String getStartAndDevelopmentRemarks() {
@@ -63,6 +77,8 @@ public class End {
     }
 
     /**
+     * Sets the startAndDevelopmentRemarks of the end
+     *
      * @param startAndDevelopmentRemarks the startAndDevelopmentRemarks to set
      */
     public void setStartAndDevelopmentRemarks(String startAndDevelopmentRemarks) {
@@ -72,11 +88,11 @@ public class End {
     private String selection;
     private String startAndDevelopmentRemarks;
     private Date finalDate;
-    
+
     @Override
-    public boolean equals(Object o){
-        End other=(End) o;
-        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection()) &&
-                this.getStartAndDevelopmentRemarks().equals(other.getStartAndDevelopmentRemarks());
+    public boolean equals(Object o) {
+        End other = (End) o;
+        return this.getText().equals(other.getText()) && this.getSelection().equals(other.getSelection())
+                && this.getStartAndDevelopmentRemarks().equals(other.getStartAndDevelopmentRemarks());
     }
 }
