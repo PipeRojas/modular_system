@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.moduleView', ['ngRoute'])
+angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/moduleView', {
@@ -26,7 +26,13 @@ angular.module('myApp.moduleView', ['ngRoute'])
     $scope.tempIteration='';
     $scope.newSubModuleName='';
     $scope.newSubModuleDate='';
-    
+    $rootScope.docUploadUrl='';
+
+    $rootScope.docUploadUrl="modules/startDocument/"+$rootScope.selectedModule.name;
+    console.info($rootScope.docUploadUrl);
+
+
+
     $scope.showSubModuleForm=function(){
         $scope.visibleSubmoduleForm=!$scope.visibleSubmoduleForm;
     };
