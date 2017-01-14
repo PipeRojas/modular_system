@@ -55,7 +55,7 @@ public class ModularSystemApplication {
                     .httpBasic()
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/app/**", "/logout", "/login").permitAll()
+                    .antMatchers("/app/**", "/logout", "/login", "/users").permitAll()
                     .anyRequest().authenticated().and()
                     .logout().logoutSuccessUrl("/")
                     .and().csrf()

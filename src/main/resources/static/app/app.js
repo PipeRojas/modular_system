@@ -7,6 +7,7 @@ angular.module('myApp', [
   'myApp.mainModules',
   'myApp.moduleView',
   'myApp.createModule',
+  'myApp.registerUser',
   'services.factory',
   'language.setting',
   'myApp.version'

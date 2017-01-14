@@ -78,4 +78,15 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.createSubModuleNameLng="SubModule Name: ";
     $rootScope.createSubModuleEstimatedDateLng="SubModule Estimated Date: ";
     $rootScope.registerNewSubModuleLng="Register SubModule";
+    $rootScope.registerUserLng="Register User";
+    $rootScope.userNameLng="User Name: ";
+    $rootScope.userTextLng="User Text: ";
+    $rootScope.userSelectionLng="User Selection: ";
+    $rootScope.userSelectionOpt1Lng="User Selection Option 1";
+    $rootScope.userSelectionOpt2Lng="User Selection Option 2";
+    $rootScope.userSelectionOpt3Lng="User Selection Option 3";
+    $rootScope.userSelectionOpt4Lng="User Selection Option 4";
+    $rootScope.saveNewUserLng="Save User";
+    $rootScope.saveUserSuccessLng="User saved succsessfully¡";
+    $rootScope.saveUserFailedLng="Error while saving the user¡";
  }]);

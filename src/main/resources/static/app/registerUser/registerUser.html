@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    .selected {
+      background-color: #A9F5F2;
+    }
+</style>
+</head>
+<br>
+<form ng-show="!authenticated">
+    <h1>
+        <b>{{registerUserLng}}</b>
+    </h1>
+    <br>
+    <center>
+        <label for="userName"><b>{{userNameLng}}</b></label>
+        <input id="userName" ng-model = "userName" type="text">
+        <br>
+        <label for="userText"><b>{{userTextLng}}</b></label>
+        <br>
+        <textarea id="userText" ng-model = "userText" rows="4" cols="50">
+        </textarea>
+        <br>
+        <div class="mui-select">
+            <label for="repeatSelect1">
+                <b>{{userSelectionLng}}
+                </b>
+            </label>
+            <select id="repeatSelect1" ng-model="userSelection">
+                <option ng-repeat="option in userSelectionOpt.availableOptions" value="{{option.name}}">{{option.name}}</option>
+            </select>
+        </div>
+    </center>
+    <br>
+    <button ng-click="registerNewUser()">{{saveNewUserLng}}</button>
+</form>
