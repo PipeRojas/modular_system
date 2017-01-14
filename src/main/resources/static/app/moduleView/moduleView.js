@@ -29,7 +29,6 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
     $rootScope.docUploadUrl='';
 
     $rootScope.docUploadUrl="modules/startDocument/"+$rootScope.selectedModule.name;
-    console.info($rootScope.docUploadUrl);
 
 
 

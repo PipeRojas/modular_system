@@ -22,6 +22,15 @@ td, th {
 <div ng-show="authenticated">
     <center>
         <h1>
+            <b>{{loadModuleByNameLng}}</b>
+        </h1>
+        <form>
+            <label for="moduleName"><b>{{createModuleNameLng}}</b></label>
+            <input id="moduleName" ng-model = "moduleName" type="text">
+            <br>
+            <button ng-click="loadModuleByName()">{{loadModuleByNameLng}}</button>
+        </form>
+        <h1>
             <b>{{mainModulesLng}} {{selectOneForDetailsLng}}</b>
         </h1>
     </center>

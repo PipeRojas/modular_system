@@ -9,11 +9,12 @@ angular.module('myApp.mainModules', ['ngRoute'])
   });
 }])
 
-.controller('mainModulesCtrl', ['mainModules' , '$scope', '$rootScope', '$location', function(mainModules, $scope, $rootScope, $location) {
+.controller('mainModulesCtrl', ['moduleByName', 'mainModules' , '$scope', '$rootScope', '$location', function(moduleByName, mainModules, $scope, $rootScope, $location) {
     mainModules.get()
     .$promise.then(
         //success
         function( value ){
+            $scope.moduleName='';
             $scope.moduleIsSelected=false;
             $scope.mainModulesList=value;
             $rootScope.selectedModule;
@@ -24,10 +25,30 @@ angular.module('myApp.mainModules', ['ngRoute'])
             $scope.goToSelectedModule=function(){
                 $location.path("/moduleView");
             };
+            $scope.loadModuleByName=function(){
+                $scope.validData=true;
+                $scope.validData=$scope.validData&&$scope.moduleName!='';
+                if($scope.validData){
+                    moduleByName.get({moduleName:$scope.moduleName})
+                    .$promise.then(
+                        //success
+                        function( value ){
+                             $rootScope.selectedModule=value;
+                             $location.path("/moduleView");
+                        },
+                        //error
+                        function( error ){
+                            alert($rootScope.errorLoadingModuleLng);
+                        }
+                    );
+                }else{
+                    alert($rootScope.invalidDataLng);
+                }
+            };
         },
         //error
         function( error ){
-
+            alert($rootScope.errorLoadingMainModulesLng);
         }
     );
 }]);

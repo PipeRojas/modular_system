@@ -87,6 +87,9 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.userSelectionOpt3Lng="User Selection Option 3";
     $rootScope.userSelectionOpt4Lng="User Selection Option 4";
     $rootScope.saveNewUserLng="Save User";
-    $rootScope.saveUserSuccessLng="User saved succsessfully¡";
+    $rootScope.saveUserSuccessLng="User saved successfully¡";
     $rootScope.saveUserFailedLng="Error while saving the user¡";
+    $rootScope.errorLoadingMainModulesLng="Error occurred while loading Main Modules!";
+    $rootScope.loadModuleByNameLng="Load Module By Name";
+    $rootScope.errorLoadingModuleLng="Error occurred while loading the module, might not exist!";
  }]);
