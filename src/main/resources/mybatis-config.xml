@@ -12,6 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <typeAlias type='edu.eci.researchgroup.modularsystem.model.Development' alias='Development'/>
         <typeAlias type='edu.eci.researchgroup.modularsystem.model.End' alias='End'/>
         <typeAlias type='edu.eci.researchgroup.modularsystem.model.Module' alias='Module'/>
+        <typeAlias type='edu.eci.researchgroup.modularsystem.model.Account' alias='Account'/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -27,6 +28,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     <mappers>
         <mapper resource="mappers/UserMapper.xml"></mapper>
         <mapper resource="mappers/ModuleMapper.xml"></mapper>
+        <mapper resource="mappers/AccountMapper.xml"></mapper>
+        <mapper resource="mappers/RoleMapper.xml"></mapper>
     </mappers>
 
 </configuration>

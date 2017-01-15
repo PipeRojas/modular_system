@@ -70,4 +70,10 @@ public abstract class DAOFactory {
      * @return Returns a DAOModules
      */
     public abstract DAOModules getDAOModules();
+    
+    /**
+     * Returns a DAOAccount
+     * @return Returns a DAOAccount
+     */
+    public abstract DAOAccount getDAOAccount();
 }

@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -48,6 +49,8 @@ public class ModularSystemApplication {
 
         @Autowired
         private DataSource dataSource;
+        @Autowired
+        private PasswordEncoder passwordEncoder;
 
         @Override
         protected void configure(AuthenticationManagerBuilder builder) throws Exception {
@@ -56,7 +59,7 @@ public class ModularSystemApplication {
                     .usersByUsernameQuery(
                             "select username,password,enabled from User_Authentication where username=?")
                     .authoritiesByUsernameQuery(
-                            "select username, role from User_Roles where username=?");
+                            "select username, role from User_Roles where username=?").passwordEncoder(passwordEncoder);
         }
 
         @Override

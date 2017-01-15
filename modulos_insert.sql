@@ -20,25 +20,25 @@ insert into User_Roles(username,role)
 
 --Users_Authentication
 --123
---insert into User_Authentication (username,password,salt)
-	--values ('user','202cb962ac59075b964b07152d234b70','');
 insert into User_Authentication (username,password,salt,enabled)
-	values ('user','123','',true);
+	values ('user','$2a$06$w77UIn0kmK3YMhJFtl84SeLbK07qJWuPFHbHP2WhJy796O09mlwlO','',true);
+--insert into User_Authentication (username,password,salt,enabled)
+--	values ('user','123','',true);
 --234
---insert into User_Authentication (username,password,salt)
-	--values ('user2','289dff07669d7a23de0ef88d2f7129e7','');
 insert into User_Authentication (username,password,salt,enabled)
-	values ('user2','234','',true);
+	values ('user2','$2a$06$RztaXi9.vUU6sjKlB7wGIui9s6d82Tx5o0.MvMlPcPNytlu2jljk2','',true);
+--insert into User_Authentication (username,password,salt,enabled)
+--	values ('user2','234','',true);
 --1123
---insert into User_Authentication (username,password,salt)
-	--values ('user11','2cfd4560539f887a5e420412b370b361','');
 insert into User_Authentication (username,password,salt,enabled)
-	values ('user11','1123','',true);
+	values ('user11','$2a$06$hkZXZDjLgi750fjOfqUXx.Mynr0p/C2tCTf3KekQQpnGDU/fCdauG','',true);
+--insert into User_Authentication (username,password,salt,enabled)
+--	values ('user11','1123','',true);
 --2234
---insert into User_Authentication (username,password,salt)
-	--values ('user12','202cb962ac59075b964b07152d234b70','');
 insert into User_Authentication (username,password,salt,enabled)
-	values ('user12','2234','',true);
+	values ('user12','$2a$06$ztA4iBgi/.klgXz2a.i5FuWQ4F9T9sTOfWmKSVzq8v5namhh/co3a','',true);
+--insert into User_Authentication (username,password,salt,enabled)
+	--values ('user12','2234','',true);
 
 --Modules table
 insert into Modules (name,owner,startDate,textS,selectionS,frecuency,estimatedDate,textD,selectionD,iteration,finalDate,textE,selectionE,finalRemarks) 

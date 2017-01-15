@@ -31,6 +31,7 @@ These can be used alone like this:
 | `/modules/mainModules` | **GET** | Returns the main modules, those which aren't submodules of any module | | **Map < String , Module >** |
 | `/modules/user/{userName}` | **GET** | Returns all the modules registered with userName as its owner | | **Map < String , Module >** |
 | `/modules/mainModules/{userName}` | **GET** | Returns all the main modules registered with userName as its owner | | **Map < String , Module >** |
+| `/app/user` | **POST** | Saves the given Account | **Account** | |
 | `/users` | **POST** | Saves the given user | **User** | |
 | `/modules` | **POST** | Saves the given module | **Module** | |
 | `/users/{oldUserName}` | **PUT** | Updates the selected user with the given information | **User** | |
@@ -57,6 +58,13 @@ These can be used alone like this:
         "name":String,
         "text":String,
         "selection":String
+    }
+
+#### Account:
+
+    {
+        "username":String,
+        "password":String
     }
 
 #### Module:

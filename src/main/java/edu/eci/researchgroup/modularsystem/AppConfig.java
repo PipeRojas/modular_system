@@ -11,10 +11,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
- * @author amoto
+ * @author Julian David Devia Serna
  */
 @Configuration
 @ComponentScan({ "edu.eci.researchgroup.web.*" })
@@ -29,5 +32,10 @@ public class AppConfig {
         driverManagerDataSource.setUsername("mzmyntsmpdxzgg");
         driverManagerDataSource.setPassword("0c3453217f36d2cb4e7fd1e7580db41305115432318183e538b4eb0a2d34ccc9");
         return driverManagerDataSource;
+    }
+    @Bean(name="passwordEncoder")
+    public PasswordEncoder passwordencoder(){
+        return new BCryptPasswordEncoder();
+    	//return NoOpPasswordEncoder.getInstance();
     }
 }

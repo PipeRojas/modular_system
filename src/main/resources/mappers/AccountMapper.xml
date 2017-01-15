@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.eci.researchgroup.modularsystem.persistence.daos.mybatis.mappers.AccountMapper">
+
+
+    <select id='selectAccount' resultType='Account'>
+        SELECT 
+            username,password
+        FROM 
+            Users_Authentication
+        WHERE
+            username=#{username};
+    </select>
+
+    <insert id='insertAccount' parameterType='map'>
+        INSERT INTO 
+            User_Authentication (username,password,salt,enabled)
+        VALUES 
+            (#{account.username},#{user.password},'',true);
+    </insert>
+</mapper>

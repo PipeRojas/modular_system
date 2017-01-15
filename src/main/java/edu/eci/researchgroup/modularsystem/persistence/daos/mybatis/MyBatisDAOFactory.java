@@ -5,6 +5,7 @@
  */
 package edu.eci.researchgroup.modularsystem.persistence.daos.mybatis;
 
+import edu.eci.researchgroup.modularsystem.persistence.daos.DAOAccount;
 import edu.eci.researchgroup.modularsystem.persistence.daos.DAOFactory;
 import edu.eci.researchgroup.modularsystem.persistence.daos.DAOModules;
 import edu.eci.researchgroup.modularsystem.persistence.daos.DAOUser;
@@ -69,6 +70,11 @@ public class MyBatisDAOFactory extends DAOFactory {
     @Override
     public DAOModules getDAOModules() {
         return new MyBatisDAOModule(sesion);
+    }
+
+    @Override
+    public DAOAccount getDAOAccount() {
+        return new MyBatisDAOAccount(sesion);
     }
 
 }
