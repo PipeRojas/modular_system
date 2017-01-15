@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-01-05 09:30:57.992
+-- Last modification date: 2017-01-15 00:08:42.741
 
 -- foreign keys
 ALTER TABLE Modules_Dev_Doc
@@ -20,6 +20,12 @@ ALTER TABLE Modules_Submodules
 ALTER TABLE Modules
     DROP CONSTRAINT Modules_Users;
 
+ALTER TABLE User_Authentication
+    DROP CONSTRAINT User_Authentication_Users;
+
+ALTER TABLE User_Roles
+    DROP CONSTRAINT User_Roles_Users;
+
 -- tables
 DROP TABLE Modules;
 
@@ -31,6 +37,11 @@ DROP TABLE Modules_Start_Doc;
 
 DROP TABLE Modules_Submodules;
 
+DROP TABLE User_Authentication;
+
+DROP TABLE User_Roles;
+
 DROP TABLE Users;
 
 -- End of file.
+

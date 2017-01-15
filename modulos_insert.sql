@@ -8,6 +8,38 @@ insert into Users (name,text,selection)
 insert into Users (name,text,selection) 
 	values ('user12','test user12 text','test user12 selection');
 
+--User_Roles
+insert into User_Roles(username,role)
+	values('user','ROLE_USER');
+insert into User_Roles(username,role)
+	values('user2','ROLE_USER');
+insert into User_Roles(username,role)
+	values('user11','ROLE_USER');
+insert into User_Roles(username,role)
+	values('user12','ROLE_USER');
+
+--Users_Authentication
+--123
+--insert into User_Authentication (username,password,salt)
+	--values ('user','202cb962ac59075b964b07152d234b70','');
+insert into User_Authentication (username,password,salt,enabled)
+	values ('user','123','',true);
+--234
+--insert into User_Authentication (username,password,salt)
+	--values ('user2','289dff07669d7a23de0ef88d2f7129e7','');
+insert into User_Authentication (username,password,salt,enabled)
+	values ('user2','234','',true);
+--1123
+--insert into User_Authentication (username,password,salt)
+	--values ('user11','2cfd4560539f887a5e420412b370b361','');
+insert into User_Authentication (username,password,salt,enabled)
+	values ('user11','1123','',true);
+--2234
+--insert into User_Authentication (username,password,salt)
+	--values ('user12','202cb962ac59075b964b07152d234b70','');
+insert into User_Authentication (username,password,salt,enabled)
+	values ('user12','2234','',true);
+
 --Modules table
 insert into Modules (name,owner,startDate,textS,selectionS,frecuency,estimatedDate,textD,selectionD,iteration,finalDate,textE,selectionE,finalRemarks) 
 	values ('module','user','2016-12-20','test text s','test selection s',true,'2016-12-21','test text d','test selection d',false,'2016-12-21','test text e','test selection e','');
@@ -41,3 +73,6 @@ insert into Modules_Submodules (Modules_name,Modules_submodule)
 	values ('module','sub-module11');
 insert into Modules_Submodules (Modules_name,Modules_submodule)
 	values ('module','sub-module12');
+
+-- End of file.
+

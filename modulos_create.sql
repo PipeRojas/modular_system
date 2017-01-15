@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-01-05 21:44:23.937
+-- Last modification date: 2017-01-15 00:08:42.741
 
 -- tables
 -- Table: Modules
@@ -49,6 +49,24 @@ CREATE TABLE Modules_Submodules (
     CONSTRAINT Modules_Submodules_pk PRIMARY KEY (Modules_name,Modules_submodule)
 );
 
+-- Table: User_Authentication
+CREATE TABLE User_Authentication (
+   username varchar(100)  NOT NULL,
+   password varchar(100)  NOT NULL,
+   salt varchar(100)  NOT NULL,
+   enabled boolean  NOT NULL,
+   CONSTRAINT User_Authentication_pk PRIMARY KEY (username)
+);
+
+-- Table: User_Roles
+CREATE TABLE User_Roles (
+   id serial  NOT NULL,
+   username varchar(100)  NOT NULL,
+   role varchar(100)  NOT NULL,
+   CONSTRAINT User_Roles_ak_1 UNIQUE (username, role) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+   CONSTRAINT User_Roles_pk PRIMARY KEY (id)
+);
+
 -- Table: Users
 CREATE TABLE Users (
     name varchar(100)  NOT NULL,
@@ -61,7 +79,9 @@ CREATE TABLE Users (
 -- Reference: Modules_Dev_Doc_Modules (table: Modules_Dev_Doc)
 ALTER TABLE Modules_Dev_Doc ADD CONSTRAINT Modules_Dev_Doc_Modules
     FOREIGN KEY (Modules_name)
-    REFERENCES Modules (name)  
+    REFERENCES Modules (name)
+    ON DELETE  CASCADE 
+    ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -69,7 +89,9 @@ ALTER TABLE Modules_Dev_Doc ADD CONSTRAINT Modules_Dev_Doc_Modules
 -- Reference: Modules_Doc_Modules (table: Modules_Start_Doc)
 ALTER TABLE Modules_Start_Doc ADD CONSTRAINT Modules_Doc_Modules
     FOREIGN KEY (Modules_name)
-    REFERENCES Modules (name)  
+    REFERENCES Modules (name)
+    ON DELETE  CASCADE 
+    ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -77,7 +99,9 @@ ALTER TABLE Modules_Start_Doc ADD CONSTRAINT Modules_Doc_Modules
 -- Reference: Modules_Remarks_Modules (table: Modules_Remarks)
 ALTER TABLE Modules_Remarks ADD CONSTRAINT Modules_Remarks_Modules
     FOREIGN KEY (Modules_name)
-    REFERENCES Modules (name)  
+    REFERENCES Modules (name)
+    ON DELETE  CASCADE 
+    ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -85,7 +109,9 @@ ALTER TABLE Modules_Remarks ADD CONSTRAINT Modules_Remarks_Modules
 -- Reference: Modules_Submodules_Modules1 (table: Modules_Submodules)
 ALTER TABLE Modules_Submodules ADD CONSTRAINT Modules_Submodules_Modules1
     FOREIGN KEY (Modules_name)
-    REFERENCES Modules (name)  
+    REFERENCES Modules (name)
+    ON DELETE  CASCADE 
+    ON UPDATE  CASCADE 
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -93,7 +119,8 @@ ALTER TABLE Modules_Submodules ADD CONSTRAINT Modules_Submodules_Modules1
 -- Reference: Modules_Submodules_Modules2 (table: Modules_Submodules)
 ALTER TABLE Modules_Submodules ADD CONSTRAINT Modules_Submodules_Modules2
     FOREIGN KEY (Modules_submodule)
-    REFERENCES Modules (name)  
+    REFERENCES Modules (name)
+    ON DELETE  CASCADE  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
@@ -106,4 +133,21 @@ ALTER TABLE Modules ADD CONSTRAINT Modules_Users
     INITIALLY IMMEDIATE
 ;
 
+-- Reference: User_Authentication_Users (table: User_Authentication)
+ALTER TABLE User_Authentication ADD CONSTRAINT User_Authentication_Users
+    FOREIGN KEY (username)
+    REFERENCES Users (name)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: User_Roles_Users (table: User_Roles)
+ALTER TABLE User_Roles ADD CONSTRAINT User_Roles_Users
+    FOREIGN KEY (username)
+    REFERENCES Users (name)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
 -- End of file.
+

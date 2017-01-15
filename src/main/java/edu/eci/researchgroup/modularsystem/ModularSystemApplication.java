@@ -27,6 +27,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.sql.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -44,9 +46,17 @@ public class ModularSystemApplication {
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected static class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+        @Autowired
+        private DataSource dataSource;
+
         @Override
         protected void configure(AuthenticationManagerBuilder builder) throws Exception {
-            builder.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+            //builder.inMemoryAuthentication().withUser("user").password("password").roles("USER");
+            builder.jdbcAuthentication().dataSource(dataSource)
+                    .usersByUsernameQuery(
+                            "select username,password,enabled from User_Authentication where username=?")
+                    .authoritiesByUsernameQuery(
+                            "select username, role from User_Roles where username=?");
         }
 
         @Override
@@ -62,7 +72,7 @@ public class ModularSystemApplication {
                     .csrfTokenRepository(csrfTokenRepository()).and()
                     .addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
                     .formLogin()
-                    .loginPage("/app/index.html");
+                    .loginPage("/app/index.html").usernameParameter("username").passwordParameter("password");
         }
 
         private OncePerRequestFilter csrfHeaderFilter() {
@@ -95,6 +105,5 @@ public class ModularSystemApplication {
         }
 
     }
-
 
 }
