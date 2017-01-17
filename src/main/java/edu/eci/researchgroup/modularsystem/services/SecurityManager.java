@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author Julian David Devia Serna
  */
+@Service
 public class SecurityManager {
     @Autowired
     private AccountsPersistence pers;
