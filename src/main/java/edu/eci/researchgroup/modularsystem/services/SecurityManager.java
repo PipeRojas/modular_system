@@ -9,6 +9,7 @@ import edu.eci.researchgroup.modularsystem.model.Account;
 import edu.eci.researchgroup.modularsystem.model.ModuleException;
 import edu.eci.researchgroup.modularsystem.persistence.AccountsPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
