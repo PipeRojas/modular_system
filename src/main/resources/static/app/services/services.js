@@ -19,4 +19,7 @@ angular.module('services.factory', ['ngRoute', 'ngResource'])
 })
 .factory('users', function($resource) {
     return $resource('/users',{},{ get: { method: 'GET', isArray: false}});
+})
+.factory('accounts', function($resource) {
+    return $resource('/app/user',{},{ get: { method: 'GET', isArray: false}});
 });

@@ -9,10 +9,12 @@ angular.module('myApp.registerUser', ['ngRoute'])
   });
 }])
 
-.controller('registerUserCtrl', ['users', 'modules', 'userByName', '$scope','$rootScope','$http','$location', function(users, modules, userByName, $scope, $rootScope, $http, $location) {
+.controller('registerUserCtrl', ['bcrypt', 'accounts', 'users', 'modules', 'userByName', '$scope','$rootScope','$http','$location', function(bcrypt, accounts, users, modules, userByName, $scope, $rootScope, $http, $location) {
     $scope.userName='';
     $scope.userSelection='';
     $scope.userText='';
+    $scope.userPassword='';
+    $scope.passwordConfirm='';
 
     $scope.userSelectionOpt = {
         availableOptions: [
@@ -29,26 +31,52 @@ angular.module('myApp.registerUser', ['ngRoute'])
         $scope.validData=$scope.validData&&$scope.userText!='';
         $scope.validData=$scope.validData&&$scope.userSelection!='';
 
-        if($scope.validData){
-            $scope.newUser={
-                "name":$scope.userName,
-                "text":$scope.userText,
-                "selection":$scope.userSelection
+        $scope.validPassword=true;
+        $scope.validPassword=$scope.validPassword&&$scope.userPassword===$scope.passwordConfirm;
+
+        if($scope.validPassword){
+            if($scope.validData){
+                $scope.newUser={
+                    "name":$scope.userName,
+                    "text":$scope.userText,
+                    "selection":$scope.userSelection
+                };
+
+                users.save($scope.newUser,function(){})
+                .$promise.then(
+                   //success
+                   function( value ){
+                        $scope.salt = bcrypt.genSaltSync(10);
+                        $scope.hash = bcrypt.hashSync("$scope.userPassword", $scope.salt);
+
+                        $scope.newAccount={
+                            "username":$scope.userName,
+                            "password":$scope.hash
+                        };
+                        accounts.save($scope.newAccount,function(){})
+                        .$promise.then(
+                           //success
+                           function( value ){
+                                alert($rootScope.saveUserSuccessLng);
+                                $location.path("/loginView");
+                           },
+                           //error
+                           function( error ){
+                                alert($rootScope.saveUserFailedLng);
+                           }
+                        );
+                   },
+                   //error
+                   function( error ){
+                        alert($rootScope.saveUserFailedLng);
+                   }
+                );
+            }else{
+                alert($rootScope.invalidDataLng);
             };
-            users.save($scope.newUser,function(){})
-            .$promise.then(
-               //success
-               function( value ){
-                    alert($rootScope.saveUserSuccessLng);
-                    $location.path("/loginView");
-               },
-               //error
-               function( error ){
-                    alert($rootScope.saveUserFailedLng);
-               }
-            );
         }else{
-            alert($rootScope.invalidDataLng);
+            alert($rootScope.passwordDontMatchLng);
         };
+
     };
 }]);

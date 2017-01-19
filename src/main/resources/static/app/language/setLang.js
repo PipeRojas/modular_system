@@ -80,6 +80,9 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.registerNewSubModuleLng="Register SubModule";
     $rootScope.registerUserLng="Register User";
     $rootScope.userNameLng="User Name: ";
+    $rootScope.userPasswordLng="Password: ";
+    $rootScope.confirmPasswordLng="Confirm Password: ";
+    $rootScope.passwordDontMatchLng="Passwords Do Not Match: ";
     $rootScope.userTextLng="User Text: ";
     $rootScope.userSelectionLng="User Selection: ";
     $rootScope.userSelectionOpt1Lng="User Selection Option 1";
