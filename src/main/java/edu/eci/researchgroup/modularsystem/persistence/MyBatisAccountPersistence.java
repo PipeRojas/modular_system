@@ -45,6 +45,7 @@ public class MyBatisAccountPersistence implements AccountsPersistence{
             daoA.insertAccount(account);
             daoF.commitTransaction();
         } catch (ModuleException ex) {
+            daoF.rollbackTransaction();
             throw ex;
         } finally {
             daoF.endSession();

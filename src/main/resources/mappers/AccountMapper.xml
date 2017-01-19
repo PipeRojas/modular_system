@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT 
             username,password
         FROM 
-            Users_Authentication
+            User_Authentication
         WHERE
             username=#{username};
     </select>
@@ -18,6 +18,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         INSERT INTO 
             User_Authentication (username,password,salt,enabled)
         VALUES 
-            (#{account.username},#{user.password},'',true);
+            (#{account.username},#{account.password},'',true);
     </insert>
 </mapper>

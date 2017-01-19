@@ -47,7 +47,7 @@ angular.module('myApp.registerUser', ['ngRoute'])
                    //success
                    function( value ){
                         $scope.salt = bcrypt.genSaltSync(10);
-                        $scope.hash = bcrypt.hashSync("$scope.userPassword", $scope.salt);
+                        $scope.hash = bcrypt.hashSync($scope.userPassword, $scope.salt);
 
                         $scope.newAccount={
                             "username":$scope.userName,
