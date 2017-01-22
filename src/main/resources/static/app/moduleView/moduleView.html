@@ -34,7 +34,7 @@
             </b>
         </h2>
         <p>
-            <b>{{moduleIsIterableLng}}</b>{{(selectedModule.iteration)?YesLng:NoLng}}
+            <b>{{moduleIsFinishedLng}}</b>{{(selectedModule.iteration)?YesLng:NoLng}}
         </p>
         <br>
         <p>
@@ -43,7 +43,9 @@
     </center>
 </div>
 <br>
-<div ng-show="!visibleEndEdit&&!visibleDevelopmentEdit&&!visibleStartDocuments&&!visibleDevelopmentDocuments&&!visibleSubmodules&&authenticated">
+<div ng-show="!visibleIterateModule&&!visibleCloneForm&&!visibleEndEdit&&!visibleDevelopmentEdit&&!visibleStartDocuments&&!visibleDevelopmentDocuments&&authenticated">
+    <button ng-click="prepareCloneModule()">{{cloneModuleLng}}</button>
+    <br>
     <center>
         <strong>
             <b>{{moduleFrequencyNoteLng}}
@@ -107,6 +109,13 @@
             <tr>
                 <td>
                     <center>
+                        <button ng-show="!selectedModule.iteration" ng-click="showDevelopmentEdit()">{{editModuleDevelopmentLng}}</button>
+                    </center>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <center>
                         <button ng-click="showSubmodules()">
                             {{moduleSubmodulesLng}}
                         </button>
@@ -114,13 +123,40 @@
                 </td>
             </tr>
             <tr>
-                <td>
-                    <center>
-                        <button ng-click="showDevelopmentEdit()">{{editModuleDevelopmentLng}}</button>
-                    </center>
-                </td>
             </tr>
         </table>
+        <br>
+        <div ng-show="visibleSubmodules&&authenticated">
+            <center>
+                <h1>
+                    <b>{{moduleSubmodulesLng}} {{selectOneForDetailsLng}}</b>
+                </h1>
+            </center>
+            <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
+                <tbody>
+                <tr>
+                    <th>{{moduleNameLng}}</th>
+                    <th>{{moduleOwnerLng}}</th>
+                </tr>
+                <tr ng-repeat="module in selectedModule.development.subModules" ng-click="selectSubModule(module)" ng-class="{selected: module.name === selectedSubModule.name}">
+                    <td>{{module.name}}</td>
+                    <td>{{module.owner.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <button ng-show="SubModuleIsSelected" ng-click="goToSubmodule()">{{goToModuleBtnLng}}</button>
+            <button ng-show="!visibleSubmoduleForm&&!selectedModule.iteration" ng-click="showSubModuleForm()">{{createSubModuleLng}}</button>
+            <form ng-show="visibleSubmoduleForm">
+                <label for="newSubModuleName"><b>{{createSubModuleNameLng}}</b></label>
+                <input ng-model="newSubModuleName" id="newSubModuleName" type="text">
+                </input>
+                <br>
+                <label for="subModuleEstimatedDate"><b>{{createSubModuleEstimatedDateLng}}</b></label>
+                <input ng-model="newSubModuleDate" id="subModuleEstimatedDate" type="date">
+                <br>
+                <button ng-click="registerNewSubModule()">{{registerNewSubModuleLng}}</button>
+            </form>
+        </div>
         <br>
         <table bgcolor="#CEF6CE" ng-model="selectedModule" ng-change="selectedModule">
             <tr>
@@ -145,7 +181,7 @@
             <tr>
                 <td>
                     <center>
-                        <button ng-click="showEndEdit()">{{editModuleEndLng}}</button>
+                        <button ng-show="!selectedModule.iteration" ng-click="showEndEdit()">{{editModuleEndLng}}</button>
                     </center>
                 </td>
             </tr>
@@ -162,6 +198,10 @@
             </tbody>
         </table>
     </center>
+    <br>
+    <label for="newRemark"><b>{{newRemarkLng}}</b></label>
+    <input ng-model="newRemark" id="newRemark" type="text">
+    <button ng-click="saveRemark()">{{addRemarkLng}}</button>
 </div>
 <br>
 <div ng-show="visibleStartDocuments&&authenticated">
@@ -191,40 +231,6 @@
     </table>
     <button ng-click="showDevelopmentDocuments()">{{backLng}}</button>
 </div>
-<br>
-<div ng-show="visibleSubmodules&&authenticated">
-    <center>
-        <h1>
-            <b>{{moduleSubmodulesLng}} {{selectOneForDetailsLng}}</b>
-        </h1>
-    </center>
-    <table bgcolor="#81F781" ng-model="selectedModule" ng-change="selectedModule">
-        <tbody>
-        <tr>
-            <th>{{moduleNameLng}}</th>
-            <th>{{moduleOwnerLng}}</th>
-        </tr>
-        <tr ng-repeat="module in selectedModule.development.subModules" ng-click="selectSubModule(module)" ng-class="{selected: module.name === selectedSubModule.name}">
-            <td>{{module.name}}</td>
-            <td>{{module.owner.name}}</td>
-        </tr>
-        </tbody>
-    </table>
-    <button ng-show="SubModuleIsSelected" ng-click="goToSubmodule()">{{goToModuleBtnLng}}</button>
-    <button ng-click="showSubmodules()">{{backLng}}</button>
-    <button ng-show="!visibleSubmoduleForm" ng-click="showSubModuleForm()">{{createSubModuleLng}}</button>
-    <form ng-show="visibleSubmoduleForm">
-        <label for="newSubModuleName"><b>{{createSubModuleNameLng}}</b></label>
-        <input ng-model="newSubModuleName" id="newSubModuleName" type="text">
-        </input>
-        <br>
-        <label for="subModuleEstimatedDate"><b>{{createSubModuleEstimatedDateLng}}</b></label>
-        <input ng-model="newSubModuleDate" id="subModuleEstimatedDate" type="date">
-        <br>
-        <button ng-click="registerNewSubModule()">{{registerNewSubModuleLng}}</button>
-    </form>
-</div>
-<br>
 <form ng-show="visibleDevelopmentEdit&&authenticated">
     <br>
     <h1>
@@ -283,11 +289,11 @@
         </textarea>
         <br>
         <label for="repeatSelect2">
-            <b>{{moduleIsIterableLng}}
+            <b>{{moduleIsFinishedLng}}
             </b>
         </label>
         <select id="repeatSelect2" ng-model="tempIteration">
-            <option ng-repeat="option in endBooleanOpt.availableOptions" value="{{option.id}}">{{option.name}}</option>
+            <option ng-repeat="option in moduleBooleanOpt.availableOptions" value="{{option.id}}">{{option.name}}</option>
         </select>
         <br>
     </center>
@@ -295,3 +301,68 @@
     <button ng-click="showEndEdit()">{{backLng}}</button>
 </form>
 <br>
+<form ng-show="authenticated&&visibleCloneForm">
+    <h1>
+        <b>{{cloneModuleTtlLng}}</b>
+    </h1>
+    <br>
+    <center>
+        <label for="moduleName"><b>{{createModuleNameLng}}</b></label>
+        <input id="moduleName" ng-model = "moduleCloneName" type="text">
+        <br>
+        <label for="moduleOwner"><b>{{createModuleOwnerNameLng}}</b></label>
+        <input id="moduleOwner" ng-model = "moduleCloneOwner.name" type="text">
+        <br>
+        <label for="moduleInitialDate"><b>{{createModuleInitialDateLng}}</b></label>
+        <input ng-model="moduleCloneInitialDate" id="moduleInitialDate" type="date">
+        <br>
+    </center>
+    <h2>
+        <b>{{createModuleStartDataLng}}</b>
+    </h2>
+    <center>
+        <br>
+        <label for="moduleStartText"><b>{{createModuleStartTextLng}}</b></label>
+        <br>
+        <textarea ng-model="moduleCloneStartText" id="moduleStartText" rows="4" cols="50">
+        </textarea>
+        <br>
+        <div class="mui-select">
+            <label for="repeatSelect3">
+                <b>{{createModuleStartSelectionLng}}
+                </b>
+            </label>
+            <select id="repeatSelect3" ng-model="moduleCloneStartSelection">
+                <option ng-repeat="option in moduleStartSelectionOpt.availableOptions" value="{{option.name}}">{{option.name}}</option>
+            </select>
+        </div>
+        <br>
+        <div class="mui-select">
+            <label for="repeatSelect4">
+                <b>{{createModuleMaintainsFrequencyLng}}
+                </b>
+            </label>
+            <select id="repeatSelect4" ng-model="moduleCloneMaintainsFrequency">
+                <option ng-repeat="option in moduleBooleanOpt.availableOptions" value="{{option.id}}">{{option.name}}</option>
+            </select>
+            <br>
+            <strong>
+                <b>{{moduleFrequencyNoteLng}}
+                </b>
+            </strong>
+        </div>
+        <br>
+        <label for="moduleEstimatedDate"><b>{{createModuleEstimatedDateLng}}</b></label>
+        <input ng-model="moduleCloneEstimatedDate" id="moduleEstimatedDate" type="date">
+        <br>
+    </center>
+    <br>
+    <button ng-click="showCloneForm()">{{backLng}}</button>
+    <button ng-click="registerModuleClone()">{{registerModuleLng}}</button>
+</form>
+<br>
+<div ng-show="authenticated&&visibleIterateModule">
+    <label for="iterate"><b>{{iterateModuleLng}}</b></label>
+    <button id="iterate" ng-click="showIterateForm()">{{NoLng}}</button>
+    <button ng-click="iterateModule()">{{YesLng}}</button>
+</div>

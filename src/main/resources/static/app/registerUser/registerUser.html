@@ -27,7 +27,7 @@
     <br>
     <center>
         <label for="userName"><b>{{userNameLng}}</b></label>
-        <input id="userName" ng-model = "userName" type="text">
+        <input id="userName" ng-model = "userName" type="text" ng-change="userName = userName.split(' ').join('')">
         <br>
         <label for="userPassword"><b>{{userPasswordLng}}</b></label>
         <input id="userPassword" ng-model = "userPassword" type="password">

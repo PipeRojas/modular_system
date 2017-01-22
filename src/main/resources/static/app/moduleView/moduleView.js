@@ -9,7 +9,7 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
   });
 }])
 
-.controller('moduleViewCtrl', ['modules', 'subModule', 'moduleByName', '$scope', '$rootScope', '$location', '$window', function(modules, subModule, moduleByName, $scope, $rootScope, $location, $window) {
+.controller('moduleViewCtrl', ['userByName', 'moduleRemark', 'modules', 'subModule', 'moduleByName', '$scope', '$rootScope', '$location', '$window', function(userByName, moduleRemark, modules, subModule, moduleByName, $scope, $rootScope, $location, $window) {
     $scope.visibleStartDocuments=false;
     $scope.visibleDevelopmentDocuments=false;
     $scope.visibleSubmodules=false;
@@ -17,6 +17,8 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
     $scope.visibleEndEdit=false;
     $scope.SubModuleIsSelected=false;
     $scope.visibleSubmoduleForm=false;
+    $scope.visibleCloneForm=false;
+    $scope.visibleIterateModule=false;
     $scope.tempDevelopmentText='';
     $scope.tempDevelopmentSelection='';
     $scope.tempEndText='';
@@ -26,20 +28,181 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
     $scope.tempIteration='';
     $scope.newSubModuleName='';
     $scope.newSubModuleDate='';
-    $rootScope.docUploadUrl='';
 
-    $rootScope.docUploadUrl="modules/startDocument/"+$rootScope.selectedModule.name;
+    $scope.showIterateForm=function(){
+        $scope.visibleIterateModule=!$scope.visibleIterateModule;
+    };
+
+    $scope.iterateModule=function(){
+        $scope.showIterateForm();
+        $scope.prepareCloneModule();
+    };
 
 
+    $scope.saveRemark=function(){
+        if($scope.newRemark){
+            moduleRemark.update({moduleName:$rootScope.selectedModule.name}, $scope.newRemark)
+            .$promise.then(
+                 //success
+                 function( value ){
+                      moduleByName.get({moduleName:$rootScope.selectedModule.name})
+                      .$promise.then(
+                            //success
+                            function( value ){
+                                $rootScope.selectedModule=value;
+                                $scope.newRemark='';
+                                alert($rootScope.newRemarkSavedLng);
+                            },
+                            //error
+                            function( error ){
+                                alert($rootScope.errorSavingChangesLng);
+                            }
+                      );
+                 },
+                 //error
+                 function( error ){
+                      alert($rootScope.errorSavingChangesLng);
+                 }
+            );
+        }else{
+            alert($rootScope.remarkNotEmptyLng);
+        };
+    };
 
     $scope.showSubModuleForm=function(){
         $scope.visibleSubmoduleForm=!$scope.visibleSubmoduleForm;
     };
+
+    $scope.showCloneForm=function(){
+        $scope.visibleCloneForm=!$scope.visibleCloneForm;
+    };
+
+    $scope.registerModuleClone=function(){
+        $scope.validCloneData=true;
+        $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneName!='';
+        $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneOwner!='';
+        $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneInitialDate;
+        $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneStartText!='';
+        $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneStartSelection!='';
+        $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneMaintainsFrequency!='';
+        $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneEstimatedDate;
+
+        if($scope.validCloneData){
+            userByName.get({userName:$scope.moduleCloneOwner.name})
+            .$promise.then(
+               //success
+               function( value ){
+                    $scope.moduleCloneOwner=value;
+                    $scope.newCloneStart={
+                        "text":$scope.moduleCloneStartText,
+                        "selection":$scope.moduleCloneStartSelection,
+                        "frequency":($scope.moduleCloneMaintainsFrequency==1)?true:false,
+                        "documents":$rootScope.selectedModule.start.documents,
+                        "estimateDate":$scope.moduleCloneEstimatedDate
+                    };
+                    $scope.newCloneDevelopment={
+                        "text":'',
+                        "selection":'',
+                        "subModules":[],
+                        "documents":[]
+                    };
+                    $scope.newCloneEnd={
+                        "text":'',
+                        "selection":'',
+                        "startAndDevelopmentRemarks":'',
+                        "finalDate":''
+                    };
+                    $scope.newClone={
+                        "name":$scope.moduleCloneName,
+                        "owner":$scope.moduleCloneOwner,
+                        "start":$scope.newCloneStart,
+                        "initialDate":$scope.moduleCloneInitialDate,
+                        "development":$scope.newCloneDevelopment,
+                        "end":$scope.newCloneEnd,
+                        "iteration":false
+                    };
+
+
+                    modules.save($scope.newClone)
+                    .$promise.then(
+                         //success
+                         function( value ){
+                              alert($rootScope.changesSavedLng);
+                              moduleByName.get({moduleName:$scope.newClone.name})
+                              .$promise.then(
+                                    //success
+                                    function( value ){
+                                        $rootScope.selectedModule=value;
+                                        $scope.showCloneForm();
+                                    },
+                                    //error
+                                    function( error ){
+                                        alert($rootScope.errorSavingModuleLng);
+                                    }
+                              );
+                         },
+                         //error
+                         function( error ){
+                              alert($rootScope.errorSavingModuleLng);
+                         }
+                    );
+               },
+               //error
+               function( error ){
+                    alert($rootScope.userDoesntExistLng);
+               }
+            );
+
+        }else{
+            alert($rootScope.invalidDataLng);
+        };
+    };
+    
+    $scope.prepareCloneModule=function(){
+        $scope.moduleCloneName=$rootScope.selectedModule.name;
+        $scope.moduleCloneOwner=$rootScope.selectedModule.owner;
+        $scope.moduleCloneInitialDate=new Date($rootScope.selectedModule.initialDate);
+        $scope.moduleCloneStartText=$rootScope.selectedModule.start.text;
+        $scope.moduleCloneStartSelection=$rootScope.selectedModule.start.selection;
+        $scope.moduleCloneMaintainsFrequency=$rootScope.selectedModule.start.frequency;
+        $scope.moduleCloneEstimatedDate=new Date($rootScope.selectedModule.start.estimateDate);
+
+        $scope.newCloneStart={
+            "text":$scope.moduleCloneStartText,
+            "selection":$scope.moduleCloneStartSelection,
+            "frequency":($scope.moduleCloneMaintainsFrequency==1)?true:false,
+            "documents":$rootScope.selectedModule.start.documents,
+            "estimateDate":$scope.moduleCloneEstimatedDate
+        };
+        $scope.newCloneDevelopment={
+            "text":'',
+            "selection":'',
+            "subModules":[],
+            "documents":[]
+        };
+        $scope.newCloneEnd={
+            "text":'',
+            "selection":'',
+            "startAndDevelopmentRemarks":'',
+            "finalDate":''
+        };
+        $scope.newClone={
+            "name":$scope.moduleCloneName,
+            "owner":$scope.moduleCloneOwner,
+            "start":$scope.newCloneStart,
+            "initialDate":$scope.moduleCloneInitialDate,
+            "development":$scope.newCloneDevelopment,
+            "end":$scope.newCloneEnd,
+            "iteration":false
+        };
+        $scope.showCloneForm();
+    };
+    
     
     $scope.registerNewSubModule=function(){
         $scope.validSubModuleData=true;
         $scope.validSubModuleData=$scope.validSubModuleData&&$scope.newSubModuleName!='';
-        $scope.validSubModuleData=$scope.validSubModuleData&&$scope.newSubModuleDate!=null;
+        $scope.validSubModuleData=$scope.validSubModuleData&&$scope.newSubModuleDate;
 
         if($scope.validSubModuleData){
             $scope.newSubModuleStart={
@@ -105,11 +268,22 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
                       alert($rootScope.errorSavingChangesLng);
                  }
             );
-        }
+        }else{
+            alert($rootScope.invalidDataLng);
+        };
 
     };
 
-    $scope.endBooleanOpt = {
+    $scope.moduleStartSelectionOpt = {
+        availableOptions: [
+            {id: '0', name: $rootScope.createModuleStartSelectionOpt1Lng},
+            {id: '1', name: $rootScope.createModuleStartSelectionOpt2Lng},
+            {id: '2', name: $rootScope.createModuleStartSelectionOpt3Lng},
+            {id: '3', name: $rootScope.createModuleStartSelectionOpt4Lng}
+        ]
+    };
+
+    $scope.moduleBooleanOpt = {
         availableOptions: [
             {id: '1', name: $rootScope.YesLng},
             {id: '0', name: $rootScope.NoLng}
@@ -129,7 +303,7 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
         $scope.validEndData=true;
         $scope.validEndData=$scope.validEndData&&$scope.tempEndText!='';
         $scope.validEndData=$scope.validEndData&&$scope.tempEndSelection!='';
-        $scope.validEndData=$scope.validEndData&&$scope.tempEndFinalDate!=null;
+        $scope.validEndData=$scope.validEndData&&$scope.tempEndFinalDate;
         $scope.validEndData=$scope.validEndData&&$scope.tempEndStaDevRemarks!='';
         $scope.validEndData=$scope.validEndData&&$scope.tempIteration!='';
 
@@ -145,6 +319,9 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
                function( value ){
                     alert($rootScope.changesSavedLng);
                     $scope.showEndEdit();
+                    if($rootScope.selectedModule.iteration){
+                        $scope.showIterateForm();
+                    };
                },
                //error
                function( error ){
@@ -241,4 +418,6 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
     $scope.goToDocument=function(documentUri){
         $window.open("https://docs.google.com/viewer?url="+documentUri, '_blank');
     };
+
+    $scope.showSubmodules();
 }]);

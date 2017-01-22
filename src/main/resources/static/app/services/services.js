@@ -22,4 +22,7 @@ angular.module('services.factory', ['ngRoute', 'ngResource'])
 })
 .factory('accounts', function($resource) {
     return $resource('/app/user',{},{ get: { method: 'GET', isArray: false}});
+})
+.factory('moduleRemark', function($resource) {
+    return $resource('/modules/remark/:moduleName',{id:"@_moduleName"},{ update: { method: 'PUT'}});
 });
