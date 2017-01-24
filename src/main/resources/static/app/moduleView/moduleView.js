@@ -28,6 +28,11 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
     $scope.tempIteration='';
     $scope.newSubModuleName='';
     $scope.newSubModuleDate='';
+    $scope.intervalDays='';
+
+    $scope.calculateDays=function(){
+        $scope.intervalDays=($rootScope.selectedModule.start.estimateDate-$rootScope.selectedModule.initialDate)/(1000*60*60*24);
+    };
 
     $scope.showIterateForm=function(){
         $scope.visibleIterateModule=!$scope.visibleIterateModule;
@@ -86,6 +91,24 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
         $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneStartSelection!='';
         $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneMaintainsFrequency!='';
         $scope.validCloneData=$scope.validCloneData&&$scope.moduleCloneEstimatedDate;
+
+        if($scope.moduleCloneMaintainsFrequency==1){
+            $scope.validData=$scope.validData&&$scope.intervalDays!='';
+            if($scope.validData){
+                $scope.validData=$scope.validData&&$scope.intervalDays>0;
+                if($scope.validData){
+                    var iniDate=new Date($scope.moduleCloneInitialDate);
+                    var estDate=new Date(iniDate);
+                    estDate.setDate(estDate.getDate()+$scope.intervalDays);
+                    $scope.moduleCloneEstimatedDate=estDate;
+                }else{
+                    alert($rootScope.wrongFrequencyLng);
+                }
+            }
+        }else if($scope.moduleCloneMaintainsFrequency==0){
+            $scope.validData=$scope.validData&&$scope.moduleCloneEstimatedDate;
+        }
+
 
         if($scope.validCloneData){
             userByName.get({userName:$scope.moduleCloneOwner.name})
@@ -420,4 +443,5 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
     };
 
     $scope.showSubmodules();
+    $scope.calculateDays();
 }]);

@@ -17,6 +17,7 @@ angular.module('myApp.createModule', ['ngRoute'])
     $scope.moduleStartSelection='';
     $scope.moduleMaintainsFrequency='';
     $scope.moduleEstimatedDate='';
+    $scope.intervalDays='';
 
     $scope.registerNewModule=function(){
 
@@ -28,7 +29,23 @@ angular.module('myApp.createModule', ['ngRoute'])
         $scope.validData=$scope.validData&&$scope.moduleStartText!='';
         $scope.validData=$scope.validData&&$scope.moduleStartSelection!='';
         $scope.validData=$scope.validData&&$scope.moduleMaintainsFrequency!='';
-        $scope.validData=$scope.validData&&$scope.moduleEstimatedDate;
+
+        if($scope.moduleMaintainsFrequency==1){
+            $scope.validData=$scope.validData&&$scope.intervalDays!='';
+            if($scope.validData){
+                $scope.validData=$scope.validData&&$scope.intervalDays>0;
+                if($scope.validData){
+                    var iniDate=new Date($scope.moduleInitialDate);
+                    var estDate=new Date(iniDate);
+                    estDate.setDate(estDate.getDate()+$scope.intervalDays);
+                    $scope.moduleEstimatedDate=estDate;
+                }else{
+                    alert($rootScope.wrongFrequencyLng);
+                }
+            }
+        }else if($scope.moduleMaintainsFrequency==0){
+            $scope.validData=$scope.validData&&$scope.moduleEstimatedDate;
+        }
         if($scope.validData){
             userByName.get({userName:$scope.moduleOwnerName})
             .$promise.then(
@@ -60,6 +77,7 @@ angular.module('myApp.createModule', ['ngRoute'])
                         "end":$scope.newModuleEnd,
                         "iteration":false
                     };
+
                     modules.save($scope.newModule,function(){})
                     .$promise.then(
                        //success
@@ -73,6 +91,7 @@ angular.module('myApp.createModule', ['ngRoute'])
                             alert($rootScope.errorSavingModuleLng);
                        }
                     );
+
                },
                //error
                function( error ){

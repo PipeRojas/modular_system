@@ -54,7 +54,6 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.createModuleStartSelectionOpt3Lng="Plan Selection Option 3";
     $rootScope.createModuleStartSelectionOpt4Lng="Plan Selection Option 4";
     $rootScope.createModuleMaintainsFrequencyLng="Module Maintains Frequency: ";
-    $rootScope.moduleFrequencyNoteLng="Note: If the module has frequency, it will be given by the time between the initial date and the estimated date.";
     $rootScope.createModuleEstimatedDateLng="Module Estimated Date: ";
     $rootScope.registerModuleLng="Register Module";
     $rootScope.invalidDataLng="Invalid Data or Blank Mandatory Spaces";
@@ -102,4 +101,6 @@ angular.module('language.setting', ['ngRoute'])
     $rootScope.cloneModuleLng="Clone This Module";
     $rootScope.cloneModuleTtlLng="Clone Module";
     $rootScope.iterateModuleLng="Do you want to iterate by cloning current module?";
+    $rootScope.frequencyLng="Frequency (Days): ";
+    $rootScope.wrongFrequencyLng="Frequency cannot be negative or zero";
  }]);

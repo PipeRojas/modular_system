@@ -65,14 +65,17 @@
                 <option ng-repeat="option in moduleBooleanOpt.availableOptions" value="{{option.id}}">{{option.name}}</option>
             </select>
             <br>
-            <strong>
-                <b>{{moduleFrequencyNoteLng}}
-                </b>
-            </strong>
         </div>
         <br>
-        <label for="moduleEstimatedDate"><b>{{createModuleEstimatedDateLng}}</b></label>
-        <input ng-model="moduleEstimatedDate" id="moduleEstimatedDate" type="date">
+        <div ng-show='moduleMaintainsFrequency==0'>
+            <label for="moduleEstimatedDate"><b>{{createModuleEstimatedDateLng}}</b></label>
+            <input ng-model="moduleEstimatedDate" id="moduleEstimatedDate" type="date">
+        </div>
+        <br>
+        <div ng-show='moduleMaintainsFrequency==1'>
+            <label for="moduleFrequency"><b>{{frequencyLng}}</b></label>
+            <input ng-model="intervalDays" id="moduleFrequency" type="number" min="1">
+        </div>
         <br>
     </center>
     <br>
