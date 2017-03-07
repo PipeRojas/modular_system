@@ -18,6 +18,7 @@ angular.module('myApp.loginView', ['ngRoute'])
         $http.get('/app/user', {headers: headers}).success(function (data) {
             if (data.name) {
                 $rootScope.authenticated = true;
+                $rootScope.actualUser = credentials.username;
             } else {
                 $rootScope.authenticated = false;
             }

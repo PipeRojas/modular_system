@@ -5,6 +5,9 @@ angular.module('services.factory', ['ngRoute', 'ngResource'])
 .factory('mainModules', function($resource) {
     return $resource('/modules/mainModules',{},{ get: { method: 'GET', isArray: false}});
 })
+.factory('mainModulesByUserName', function($resource){
+      return $resource('/modules/mainModules/:userName',{id:"@_userName"},{ get: { method: 'GET', isArray: false}});
+})
 .factory('moduleByName', function($resource){
       return $resource('/modules/:moduleName',{id:"@_moduleName"},{update: { method: 'PUT'}});
 })

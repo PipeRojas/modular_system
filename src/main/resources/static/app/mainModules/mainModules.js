@@ -9,8 +9,8 @@ angular.module('myApp.mainModules', ['ngRoute'])
   });
 }])
 
-.controller('mainModulesCtrl', ['moduleByName', 'mainModules' , '$scope', '$rootScope', '$location', function(moduleByName, mainModules, $scope, $rootScope, $location) {
-    mainModules.get()
+.controller('mainModulesCtrl', ['mainModulesByUserName', 'moduleByName', 'mainModules' , '$scope', '$rootScope', '$location', function(mainModulesByUserName, moduleByName, mainModules, $scope, $rootScope, $location) {
+    mainModulesByUserName.get({userName:$rootScope.actualUser})
     .$promise.then(
         //success
         function( value ){
