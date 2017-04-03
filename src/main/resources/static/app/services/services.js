@@ -28,4 +28,7 @@ angular.module('services.factory', ['ngRoute', 'ngResource'])
 })
 .factory('moduleRemark', function($resource) {
     return $resource('/modules/remark/:moduleName',{id:"@_moduleName"},{ update: { method: 'PUT'}});
+})
+.factory('startDocument', function($resource){
+      return $resource('/modules/startDocument/:moduleName',{id:"@_moduleName"},{update: { method: 'PUT', headers: {'Content-Type': 'undefined', 'transformRequest': 'angular.identity'}}});
 });

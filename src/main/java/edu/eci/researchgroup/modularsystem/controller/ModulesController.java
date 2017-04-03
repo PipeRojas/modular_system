@@ -10,16 +10,20 @@ import edu.eci.researchgroup.modularsystem.model.ModuleException;
 import edu.eci.researchgroup.modularsystem.model.UserException;
 import edu.eci.researchgroup.modularsystem.services.ModulesManager;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -107,15 +111,41 @@ public class ModulesController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/startDocument/{moduleName}")
-    public ResponseEntity<?> addStarFileModule(@PathVariable String moduleName, @RequestBody File file) {
+    public ResponseEntity<?> addStarFileModule(@RequestParam("file") MultipartFile file, @PathVariable String moduleName) throws IOException {
+        byte[] bytes;
+        if (!file.isEmpty()) {
+            try {
+                bytes = file.getBytes();
+                File fileToSave=new File(file.getOriginalFilename());
+                fileToSave.createNewFile();
+                FileOutputStream fos= new FileOutputStream(fileToSave);
+                fos.write(bytes);
+                fos.close();
+                mm.addFileToModuleStart(moduleName, fileToSave);
+
+            } catch (IOException e) {
+                Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, e);
+                return new ResponseEntity<>(e.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
+            } catch (ModuleException e) {
+                Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, e);
+                return new ResponseEntity<>(e.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    /**
+    public @ResponseBody ResponseEntity<?> addStarFileModule(@PathVariable String moduleName, @RequestParam("file") MultipartFile file, Model model) {
         try {
-            mm.addFileToModuleStart(moduleName, file);
+            System.out.println(file.getOriginalFilename());
+            //mm.addFileToModuleStart(moduleName, file);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        } catch (ModuleException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(UsersController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>(ex.getStackTrace(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
+    */
 
     @RequestMapping(method = RequestMethod.PUT, path = "/developmentDocument/{moduleName}")
     public ResponseEntity<?> addDevelopmentFileModule(@PathVariable String moduleName, @RequestBody File file) {

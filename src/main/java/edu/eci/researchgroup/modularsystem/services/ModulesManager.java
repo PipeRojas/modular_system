@@ -114,8 +114,10 @@ public class ModulesManager {
     public void addFileToModuleStart(String name, File file) throws ModuleException {
         if (checkModule(name)) {
             try {
-                Path newPath = Files.move(file.toPath(), Paths.get(new URI(name + "/" + file.getName())));
-                persist.addDocumentToStartModule(newPath.toUri().getPath(), name);
+
+                Path newPath = Files.move(file.toPath(), Paths.get(new URI((name + "/" + file.getName()).replaceAll("\\s+",""))));
+                System.out.println(newPath.toString());
+                //persist.addDocumentToStartModule(newPath.toUri().getPath(), name);
             } catch (URISyntaxException | IOException ex) {
                 Logger.getLogger(ModulesManager.class.getName()).log(Level.SEVERE, null, ex);
                 throw new ModuleException("An error ocurred while saving the file");

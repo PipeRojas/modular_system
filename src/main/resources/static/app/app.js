@@ -2,6 +2,8 @@
 
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
+  'ngFileUpload',
+  'lr.upload',
   'ngRoute',
   'dtrw.bcrypt',
   'myApp.loginView',

@@ -116,7 +116,10 @@ angular.module('myApp.createModule', ['ngRoute'])
             {id: '0', name: $rootScope.createModuleStartSelectionOpt1Lng},
             {id: '1', name: $rootScope.createModuleStartSelectionOpt2Lng},
             {id: '2', name: $rootScope.createModuleStartSelectionOpt3Lng},
-            {id: '3', name: $rootScope.createModuleStartSelectionOpt4Lng}
+            {id: '3', name: $rootScope.createModuleStartSelectionOpt4Lng},
+            {id: '4', name: $rootScope.createModuleStartSelectionOpt5Lng},
+            {id: '5', name: $rootScope.createModuleStartSelectionOpt6Lng},
+            {id: '6', name: $rootScope.createModuleStartSelectionOpt7Lng}
         ]
     };
 }]);

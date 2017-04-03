@@ -9,7 +9,7 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
   });
 }])
 
-.controller('moduleViewCtrl', ['userByName', 'moduleRemark', 'modules', 'subModule', 'moduleByName', '$scope', '$rootScope', '$location', '$window', function(userByName, moduleRemark, modules, subModule, moduleByName, $scope, $rootScope, $location, $window) {
+.controller('moduleViewCtrl', ['Upload', 'startDocument', 'userByName', 'moduleRemark', 'modules', 'subModule', 'moduleByName', '$scope', '$rootScope', '$location', '$window', function(Upload, startDocument, userByName, moduleRemark, modules, subModule, moduleByName, $scope, $rootScope, $location, $window) {
     $scope.visibleStartDocuments=false;
     $scope.visibleDevelopmentDocuments=false;
     $scope.visibleSubmodules=false;
@@ -29,6 +29,69 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
     $scope.newSubModuleName='';
     $scope.newSubModuleDate='';
     $scope.intervalDays='';
+    $scope.actualFile=null;
+    $scope.startDocUploadUrl='/modules/startDocument/'+$rootScope.selectedModule.name;
+
+    $scope.selectFile=function(file){
+        $scope.actualFile=file;
+    }
+
+    $scope.doUpload = function () {
+        if($scope.actualFile){
+            Upload.upload({
+                url: $scope.startDocUploadUrl,
+                method: "PUT",
+                data: {file: $scope.actualFile}
+            }).then(function (resp) {
+                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            }, function (resp) {
+                console.log('Error status: ' + resp.status);
+            }, function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+            });
+        }
+
+    }
+
+    $scope.uploadStartFile=function(){
+        if($scope.actualFile){
+            console.info($scope.actualFile);
+            $http({url: $scope.startDocUploadUrl,
+                  method: 'PUT',
+                  data: $scope.actualFile,
+                  headers: {'Content-Type': undefined },
+                  transformRequest: angular.identity
+            });
+            /**
+            startDocument.update({moduleName:$rootScope.selectedModule.name}, $scope.actualFile)
+            .$promise.then(
+                 //success
+                 function( value ){
+                      moduleByName.get({moduleName:$rootScope.selectedModule.name})
+                      .$promise.then(
+                            //success
+                            function( value ){
+                                $rootScope.selectedModule=value;
+                                $scope.actualFile=null;
+                                alert($rootScope.startDocumentSavedLng);
+                            },
+                            //error
+                            function( error ){
+                                alert($rootScope.errorSavingChangesLng);
+                            }
+                      );
+                 },
+                 //error
+                 function( error ){
+                      alert($rootScope.errorSavingChangesLng);
+                 }
+            );
+            */
+        }else{
+            alert($rootScope.pleaseSelectFileLng)
+        }
+    }
 
     $scope.calculateDays=function(){
         $scope.intervalDays=($rootScope.selectedModule.start.estimateDate-$rootScope.selectedModule.initialDate)/(1000*60*60*24);
@@ -302,7 +365,10 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
             {id: '0', name: $rootScope.createModuleStartSelectionOpt1Lng},
             {id: '1', name: $rootScope.createModuleStartSelectionOpt2Lng},
             {id: '2', name: $rootScope.createModuleStartSelectionOpt3Lng},
-            {id: '3', name: $rootScope.createModuleStartSelectionOpt4Lng}
+            {id: '3', name: $rootScope.createModuleStartSelectionOpt4Lng},
+            {id: '4', name: $rootScope.createModuleStartSelectionOpt5Lng},
+            {id: '5', name: $rootScope.createModuleStartSelectionOpt6Lng},
+            {id: '6', name: $rootScope.createModuleStartSelectionOpt7Lng}
         ]
     };
 
@@ -318,7 +384,8 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
             {id: '0', name: $rootScope.moduleEndSelectionOpt1Lng},
             {id: '1', name: $rootScope.moduleEndSelectionOpt2Lng},
             {id: '2', name: $rootScope.moduleEndSelectionOpt3Lng},
-            {id: '3', name: $rootScope.moduleEndSelectionOpt4Lng}
+            {id: '3', name: $rootScope.moduleEndSelectionOpt4Lng},
+            {id: '4', name: $rootScope.moduleEndSelectionOpt5Lng}
         ]
     };
 
@@ -442,6 +509,6 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
         $window.open("https://docs.google.com/viewer?url="+documentUri, '_blank');
     };
 
-    $scope.showSubmodules();
+    //$scope.showSubmodules();
     $scope.calculateDays();
 }]);

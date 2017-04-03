@@ -112,18 +112,13 @@
                     </center>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <center>
-                        <button ng-click="showSubmodules()">
-                            {{moduleSubmodulesLng}}
-                        </button>
-                    </center>
-                </td>
-            </tr>
-            <tr>
-            </tr>
         </table>
+        <br>
+        <center>
+            <button ng-click="showSubmodules()">
+                {{moduleSubmodulesLng}}
+            </button>
+        </center>
         <br>
         <div ng-show="visibleSubmodules&&authenticated">
             <center>
@@ -214,6 +209,19 @@
         </tr>
         </tbody>
     </table>
+    <br>
+    <form name="form">
+        Drop files: <div ngf-drop ng-model="actualFile" class="drop-box">Drop</div>
+        <button type="submit" ng-click="doUpload()">submit</button>
+    </form>
+    <!--form>
+        <button type="file" ngf-select="selectFile($file)"
+                accept=".docx" ngf-max-size="1MB">
+            {{selectADocumentLabelLng}}</button>
+        <div style="font:smaller">{{actualFile.name}}</div>
+        <button ng-show="actualFile" ng-click="uploadStartFile()">{{uploadFileButtonLng}}</button>
+    </form-->
+    <br>
     <button ng-click="showStartDocuments()">{{backLng}}</button>
 </div>
 <br>
