@@ -9,7 +9,7 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
   });
 }])
 
-.controller('moduleViewCtrl', ['Upload', 'startDocument', 'userByName', 'moduleRemark', 'modules', 'subModule', 'moduleByName', '$scope', '$rootScope', '$location', '$window', function(Upload, startDocument, userByName, moduleRemark, modules, subModule, moduleByName, $scope, $rootScope, $location, $window) {
+.controller('moduleViewCtrl', [/**'Upload', **/'startDocument', 'userByName', 'moduleRemark', 'modules', 'subModule', 'moduleByName', '$scope', '$rootScope', '$location', '$window', function(/**Upload, */startDocument, userByName, moduleRemark, modules, subModule, moduleByName, $scope, $rootScope, $location, $window) {
     $scope.visibleStartDocuments=false;
     $scope.visibleDevelopmentDocuments=false;
     $scope.visibleSubmodules=false;
@@ -38,6 +38,7 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
 
     $scope.doUpload = function () {
         if($scope.actualFile){
+          /**
             Upload.upload({
                 url: $scope.startDocUploadUrl,
                 method: "PUT",
@@ -50,6 +51,7 @@ angular.module('myApp.moduleView', ['ngRoute', 'ngDropzone'])
                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                 console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
             });
+         */
         }
 
     }
